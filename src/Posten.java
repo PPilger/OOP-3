@@ -20,6 +20,13 @@ public class Posten implements Serializable {
 	private String bezeichnung;
 	private Date datum;
 
+	/**Legt neuen Posten an.
+	 * Parameter duerfen nicht NULL sein.
+	 * @param einnahmen
+	 * @param ausgaben
+	 * @param bezeichnung
+	 * @param datum
+	 */
 	public Posten(double einnahmen, double ausgaben, String bezeichnung,
 			Date datum) {
 
@@ -30,6 +37,10 @@ public class Posten implements Serializable {
 
 	}
 
+	/**
+	 * Selektiert Posten die sich mit angegebenen Zeitraum ueberschneiden
+	 *
+	 */
 	public static class ZeitraumSelektor implements Selector<Posten> {
 
 		private Zeitraum zeitraum;

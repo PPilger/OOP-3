@@ -17,13 +17,18 @@ public class Termin implements Serializable {
 	private Ort ort;
 	private Zeitraum zeitraum;
 	private Posten posten;
-	private List<Mitglied> teilnehmer; // aenderungen sind nicht zugelassen
 
+	// aenderungen sind nicht zugelassen, duerfen nur mittels methoden der klasse veraendert werden
+	// Liste darf keine NULL Werte enthalten, oder doppelte eintraege
+	private List<Mitglied> teilnehmer;
+
+	//speichert vorhergehenden zustand des Objekts (UNDO), ist NULL wenn instanziert, oder nichts mehr rueckgaengig gemacht werden kann
 	private Termin orig;
 
 	private Termin() {
 	}
 
+	//Parameter duerfen nicht NULL sein, private variable orig muss NULL bleiben. Liste darf keine NULL Werte enthalten, oder doppelte eintraege
 	public Termin(Typ typus, Ort ort, Date von, Date bis, double ausgaben,
 			double einnahmen, List<Mitglied> teilnehmer) {
 		this.typus = typus;
@@ -50,7 +55,7 @@ public class Termin implements Serializable {
 		return posten.getEinnahmen();
 	}
 
-	/**
+	/**Liste darf keine NULL Werte enthalten, oder doppelte eintraege.
 	 * @return Teilnehmerliste. Diese darf nicht geaendert werden!
 	 */
 	public List<Mitglied> getTeilnehmer() {
@@ -104,6 +109,8 @@ public class Termin implements Serializable {
 	 */
 	private void meldeUpdate(String aenderung) {
 		for (Mitglied t : teilnehmer) {
+			assert(t != null);
+			//t darf nicht doppelt in teilnehmer vorhanden sein
 			t.sende(orig + " wurde geaendert: " + aenderung);
 		}
 	}
@@ -111,7 +118,7 @@ public class Termin implements Serializable {
 	/**
 	 * @author Christian Kletzander
 	 * @param ort
-	 *            ueberspeichern des Ortes
+	 *            ueberspeichern des Ortes, darf nicht NULL sein
 	 */
 	public void setOrt(Ort ort) {
 		this.prepareUpdate();
@@ -122,7 +129,7 @@ public class Termin implements Serializable {
 	/**
 	 * @author Christian Kletzander
 	 * @param zeitraum
-	 *            ueberspeichern des Zeitraums
+	 *            ueberspeichern des Zeitraums, duerfen nicht NULL sein
 	 */
 	public void setZeitraum(Date von, Date bis) {
 		this.prepareUpdate();
@@ -162,15 +169,16 @@ public class Termin implements Serializable {
 	}
 
 	/**
-	 * Selektiert jene Termine in denen ein gegebenes Mitglied auch beteiligt
+	 * Selektiert jene Termine an denen ein gegebenes Mitglied auch beteiligt
 	 * ist
 	 * 
-	 * @author VHD
+	 * @author Koegler Alexander
 	 * 
 	 */
 	public static class TeilnehmerSelektor implements Selector<Termin> {
 		private Mitglied m;
 
+		//Parameter sollte nicht NULL sein
 		public TeilnehmerSelektor(Mitglied m) {
 			this.m = m;
 		}
@@ -181,21 +189,33 @@ public class Termin implements Serializable {
 		}
 	}
 
+	/**
+	 * Selektiert Termine dessen Zeitraum den angegebenen ueberschneidet
+	 * @author Koegler Alexander
+	 *
+	 */
 	public static class ZeitraumSelektor implements Selector<Termin> {
 
 		private Zeitraum zeitraum;
 
+		//Parameter darf nicht NULL sein
 		public ZeitraumSelektor(Zeitraum zeitraum) {
 			this.zeitraum = zeitraum;
 		}
 
 		@Override
+		//Parameter darf nicht NULL sein
 		public boolean select(Termin item) {
 			return this.zeitraum.enthaelt(item.zeitraum);
 		}
 
 	}
 
+	/**
+	 * Selektiert Termine aus, dessen Typ mit dem angegebenen uebereinstimmt
+	 * @author Koegler Alexander
+	 *
+	 */
 	public static class TypSelektor implements Selector<Termin> {
 		private Typ typus;
 
@@ -204,6 +224,7 @@ public class Termin implements Serializable {
 		}
 
 		@Override
+		//Parameter darf nicht NULL sein
 		public boolean select(Termin item) {
 			return this.typus == item.typus;
 		}

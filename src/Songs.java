@@ -19,7 +19,7 @@ public class Songs extends Selection<Song> {
 	 * den Selektoren selektiert werden.
 	 * 
 	 * @param base
-	 * @param selectors
+	 * @param selectors Liste darf nicht NULL sein, oder Elemente enthalten die NULL sind
 	 */
 	private Songs(Songs base, List<Selector<Song>> selectors) {
 		super(base, selectors);
@@ -31,6 +31,7 @@ public class Songs extends Selection<Song> {
 	 * werden. Aenderungen in der zurueckgegebenen Selektion wirken sich direkt
 	 * auf das Original aus.
 	 * 
+	 * Parameter darf nicht NULL sein 
 	 * @param selectors
 	 * @return
 	 */
@@ -56,6 +57,7 @@ public class Songs extends Selection<Song> {
 	}
 
 	/**
+	 * Parameter darf nicht NULL sein, oder Elemente die NULL sind enthalten
 	 * @param variante
 	 * @return true, wenn alle Selektoren die Variante selektieren, false
 	 *         anderenfalls.

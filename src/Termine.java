@@ -31,6 +31,7 @@ public class Termine extends Selection<Termin> {
 	 * selektiert werden. Aenderungen in der zurueckgegebenen Selektion wirken
 	 * sich direkt auf das Original aus.
 	 * 
+	 * Parameter darf nicht NULL sein
 	 * @param selectors
 	 * @return
 	 */
@@ -38,10 +39,12 @@ public class Termine extends Selection<Termin> {
 		return new Termine(this, selectors);
 	}
 
-	/**
+	/**Parameter darf nicht NULL sein
 	 * Fuegt einen neuen Termin hinzu, sofern dieser keine Teilnehmer besitzt.
 	 * Um einen Termin mit Teilnehmern anzulegen sollte
 	 * <code>Band.sendeTerminvorschlag()</code> verwendet werden.
+	 * 
+	 * Parameter darf nicht NULL sein
 	 * 
 	 * @return true, wenn der Termin hinzugefuegt wurde, false wenn er
 	 *         Teilnehmer hat.
@@ -58,6 +61,8 @@ public class Termine extends Selection<Termin> {
 	/**
 	 * Fuegt einen Termin zur Liste hinzu, wenn alle Teilnehmer dem
 	 * entsprechenden Terminvorschlag zugestimmt haben.
+	 * 
+	 * Parameter darf nicht NULL sein
 	 * 
 	 * @param vorschlag
 	 */
@@ -81,6 +86,7 @@ public class Termine extends Selection<Termin> {
 			Termin termin = iter.next();
 
 			for (Mitglied teilnehmer : termin.getTeilnehmer()) {
+				assert(teilnehmer != null);
 				teilnehmer.sende(termin + " wurde entfernt!");
 			}
 

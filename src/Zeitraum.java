@@ -14,12 +14,15 @@ import java.util.List;
 public class Zeitraum implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	//Darf niemals NULL werden, oder Elemente enthalten die NULL sind
 	List<Date> zeitpunkte = new ArrayList<Date>();
 
+	//Parameter darf nicht NULL sein
 	public Zeitraum(Date... zeitpunkte) {
 		this.zeitpunkte.addAll(Arrays.asList(zeitpunkte));
 	}
 
+	//Parameter darf nicht NULL sein
 	public Zeitraum(Zeitraum orig) {
 		this.zeitpunkte.addAll(orig.zeitpunkte);
 	}
@@ -38,6 +41,7 @@ public class Zeitraum implements Serializable {
 		return zeitpunkte.get(zeitpunkte.size() - 1);
 	}
 
+	//Parameter darf nicht NULL sein
 	public boolean inZeitraum(Date zeitpunkt) {
 		if (zeitpunkte.isEmpty()) {
 			return true;
@@ -62,6 +66,7 @@ public class Zeitraum implements Serializable {
 		return false;
 	}
 
+	//Parameter darf nicht NULL sein
 	public boolean enthaelt(Zeitraum other) {
 		if (zeitpunkte.isEmpty()) {
 			return true; // alles ist enthalten
@@ -94,6 +99,7 @@ public class Zeitraum implements Serializable {
 		return toString(DateFormat.getDateInstance());
 	}
 
+	//Parameter darf nicht NULL sein
 	public String toString(DateFormat format) {
 		StringBuilder builder = new StringBuilder();
 
@@ -138,10 +144,12 @@ public class Zeitraum implements Serializable {
 		return builder.toString();
 	}
 
+	//Parameter duerfen nicht NULL sein
 	private static boolean inZeitraum(Date t, Date von, Date bis) {
 		return !bis.before(t) && !von.after(t);
 	}
 
+	//Parameter darf nicth NULL sein
 	private boolean enthaelt(Date von) {
 		if (zeitpunkte.isEmpty()) {
 			return true;
@@ -158,7 +166,7 @@ public class Zeitraum implements Serializable {
 		return !v.after(von);
 	}
 
-	/**
+	/**Parameter duerfen nicht NULL sein
 	 * Vorbedingung: der Zeitpunkt <code>von</code> liegt vor <code>bis</code>!
 	 */
 	private boolean enthaelt(Date von, Date bis) {
