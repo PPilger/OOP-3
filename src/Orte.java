@@ -18,6 +18,7 @@ public class Orte extends Selection<Ort> {
 	 * 
 	 * @param selectors
 	 * @return
+	 * Vorbedingung: Parameter darf nicht NULL sein, oder Elemente die NULL sind enthalten
 	 */
 	public Orte select(List<Selector<Ort>> selectors) {
 		return new Orte(this, selectors);

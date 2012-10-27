@@ -1,6 +1,11 @@
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Specihert Ort mit zugehoeriger Infrastruktur
+ * @author VHD
+ * Invariante: gibt keine NULL Werte zurueck
+ */
 public class Ort implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -15,6 +20,12 @@ public class Ort implements Serializable {
 		return bezeichnung + " " + infrastruktur.toString();
 	}
 
+	/**
+	 * 
+	 * @param bezeichnung
+	 * @param infrastruktur
+	 * Vorbedingung: Parameter darf nicht NULL sein, oder Elemente enthalten die NULL sind
+	 */
 	public Ort(String bezeichnung, List<String> infrastruktur) {
 		this.bezeichnung = bezeichnung;
 		this.infrastruktur = infrastruktur;
@@ -23,7 +34,7 @@ public class Ort implements Serializable {
 	/**
 	 * 
 	 * @author Koegler Alexander
-	 * 
+	 * Vorbedingung: Parameter darf nicht NULL sein
 	 */
 	public static class BezeichnungSelektor implements Selector<Ort> {
 
@@ -53,6 +64,7 @@ public class Ort implements Serializable {
 		 *            Wenn True so wird nur darauf geachtet das die bezeichnung
 		 *            enthalten ist, bei False muessen die bezeichnungn komplett
 		 *            gleich sein.
+		 * Vorbedingung: Parameter duerfen nicht NULL sein
 		 */
 		public BezeichnungSelektor(String bezeichnung, boolean okIfContains) {
 			this.name = bezeichnung;
@@ -70,6 +82,11 @@ public class Ort implements Serializable {
 		}
 	}
 
+	/**
+	 * 
+	 * @author VHD
+	 * Vorbedingung: Parameter duerfen nicht NULL sein
+	 */
 	public static class InfrastrukturSelektor implements Selector<Ort> {
 		private String name;
 

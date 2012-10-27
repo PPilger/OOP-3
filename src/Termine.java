@@ -31,9 +31,9 @@ public class Termine extends Selection<Termin> {
 	 * selektiert werden. Aenderungen in der zurueckgegebenen Selektion wirken
 	 * sich direkt auf das Original aus.
 	 * 
-	 * Parameter darf nicht NULL sein
 	 * @param selectors
 	 * @return
+	 * Vorbedingung: Parameter duerfen nicht NULL sein
 	 */
 	public Termine select(List<Selector<Termin>> selectors) {
 		return new Termine(this, selectors);
@@ -43,11 +43,10 @@ public class Termine extends Selection<Termin> {
 	 * Fuegt einen neuen Termin hinzu, sofern dieser keine Teilnehmer besitzt.
 	 * Um einen Termin mit Teilnehmern anzulegen sollte
 	 * <code>Band.sendeTerminvorschlag()</code> verwendet werden.
-	 * 
-	 * Parameter darf nicht NULL sein
-	 * 
+	 *
 	 * @return true, wenn der Termin hinzugefuegt wurde, false wenn er
 	 *         Teilnehmer hat.
+	 * Vorbedingung: Parameter darf nicht NULL sein
 	 */
 	@Override
 	public boolean add(Termin termin) {
@@ -61,10 +60,8 @@ public class Termine extends Selection<Termin> {
 	/**
 	 * Fuegt einen Termin zur Liste hinzu, wenn alle Teilnehmer dem
 	 * entsprechenden Terminvorschlag zugestimmt haben.
-	 * 
-	 * Parameter darf nicht NULL sein
-	 * 
 	 * @param vorschlag
+	 * Vorbedingung: Parameter darf nicht NULL sein
 	 */
 	public void add(Terminvorschlag vorschlag) {
 		if (vorschlag.accepted()) {
@@ -76,6 +73,7 @@ public class Termine extends Selection<Termin> {
 	 * Entfernt alle selektierten Termine und benachrichtigt alle Teilnehmer.
 	 * 
 	 * @return die Anzahl der entfernten Termine
+	 * Nachbedingung: liefert int >= 0 zurueck
 	 */
 	@Override
 	public int remove() {
@@ -102,6 +100,7 @@ public class Termine extends Selection<Termin> {
 	 * 
 	 * @param zeitpunkt
 	 * @return der Gewinn
+	 * Nachbedingung: liefert int >= 0 zurueck
 	 */
 	public double getGewinn() {
 		double gewinn = 0;
@@ -118,6 +117,7 @@ public class Termine extends Selection<Termin> {
 	 * 
 	 * @param zeitpunkt
 	 * @return die Kosten
+	 * Nachbedingung: liefert int >= 0 zurueck
 	 */
 	public double getKosten() {
 		double kosten = 0;

@@ -10,10 +10,8 @@ import java.util.ListIterator;
  * Eine Selektion von Elementen. Welche Elemente sichtbar sind, wird mit
  * Selector-Objekten bestimmt.
  * 
- * Invariante: Die privaten Listen sind niemals NULL oder enthalten NULL Elemente
- * 
  * @author Peter Pilgerstorfer
- * 
+ * Invariante: Die privaten Listen sind niemals NULL oder enthalten NULL Elemente. Nur getFirst() kann NULL zurueckliefern
  */
 public class Selection<T> implements Iterable<T>, Serializable {
 	private static final long serialVersionUID = 1L;
@@ -32,10 +30,10 @@ public class Selection<T> implements Iterable<T>, Serializable {
 	 * Erstelle eine neue Sicht die auf den selben Daten wie <code>base</code>
 	 * arbeitet. Die uebergebenen Selektoren werden zusaetzlich zu den in
 	 * <code>base</code> bestehenden uebernommen.
-	 * 
-	 * Vorbedingung: Parameter duerfen nicht NULL sein, und keine Elemente enhalten die NULL sind
+	 *  
 	 * @param base
 	 * @param selectors
+	 * Vorbedingung: Parameter duerfen nicht NULL sein, und keine Elemente enhalten die NULL sind
 	 */
 	public Selection(Selection<T> base, List<Selector<T>> selectors) {
 		this.list = base.list;
@@ -46,6 +44,7 @@ public class Selection<T> implements Iterable<T>, Serializable {
 
 	/**
 	 * @return das erste selektierte Element
+	 * Nachbedingung: gibt ein Element vom Typ T zurueck das nicht NULL ist; oder gibt NULL zurueck, falls keine Elemente in Liste enthalten sind
 	 */
 	public T getFirst() {
 		Iterator<T> iter = iterator();
@@ -57,6 +56,7 @@ public class Selection<T> implements Iterable<T>, Serializable {
 
 	/**
 	 * @return die aktuelle Selektion als Liste.
+	 * Nachbedingung: Liefert Liste die Elemente, ohne NULL Elemente, enthaelt oder leere Liste vom Typ T
 	 */
 	public List<T> asList() {
 		List<T> list = new ArrayList<T>();
@@ -82,6 +82,7 @@ public class Selection<T> implements Iterable<T>, Serializable {
 	 * Entfernt alle selektierten Elemente.
 	 * 
 	 * @return die Anzahl der entfernten Elemente
+	 * Nachbedingung: liefert int Wert >= 0 zurueck
 	 */
 	public int remove() {
 		int removed = 0;
@@ -98,6 +99,8 @@ public class Selection<T> implements Iterable<T>, Serializable {
 
 	/**
 	 * Stellt alle selektierten, geloeschten Elemente wieder her.
+	 * 
+	 * Nachbedingung: fuegt kein oder mehrere Elemente in die aktuelle Liste
 	 */
 	public void restore() {
 		Iterator<T> removedIter = removedIterator();
@@ -111,6 +114,7 @@ public class Selection<T> implements Iterable<T>, Serializable {
 
 	/**
 	 * @return Anzahl der selektierten Elemente
+	 * Nachbedingung: liefert int >= 0 zurueck
 	 */
 	public int count() {
 		int count = 0;
@@ -142,6 +146,7 @@ public class Selection<T> implements Iterable<T>, Serializable {
 	/**
 	 * Gibt die Selection im Format einer gewoehnlichen java.util.Collection
 	 * zurueck.
+	 * Nachbedingung: liefert gueltiges String-Objekt zurueck
 	 */
 	@Override
 	public String toString() {
@@ -204,7 +209,8 @@ public class Selection<T> implements Iterable<T>, Serializable {
 	 * iteriert.
 	 * 
 	 * @author Peter Pilgerstorfer
-	 * 
+	 * Vorbedingung: Listen duerfen keine NULL Elemente enthalten, oder NULL sein (ausg. removed)
+	 * Invariante: nur next() kann NULL zurueckliefern (hasNext() Ueberpruefung), Elemente koennen dann wiederhergestellt werden sofern remove nicht NULL ist
 	 */
 	private class SelectionIterator implements Iterator<T> {
 		private Collection<T> removed; // Collection aller entfernten Elemente
@@ -249,6 +255,9 @@ public class Selection<T> implements Iterable<T>, Serializable {
 		}
 
 		@Override
+		/**
+		 * Nachbedingung: liefert Element vom Typ T, oder NULL zurueck
+		 */
 		public T next() {
 			current = next;
 			next = nextSelected();

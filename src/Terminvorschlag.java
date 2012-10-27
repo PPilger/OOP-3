@@ -11,11 +11,11 @@ public class Terminvorschlag implements Serializable {
 	//Liste darf nie NULL werden oder Elemente die NULL sind enthalten
 	private List<Mitglied> offen;
 
-	//Parameter duerfen nicht NULL sein
 	/**
 	 * Legt neuen Termin 
 	 * @param termin an, der bei Zustimmung zu 
 	 * @param target angegebenen Terminen hinzugefuegt wird
+	 * Vorbedingung: Parameter duerfen nicht NULL sein
 	 */
 	public Terminvorschlag(Termin termin, Termine target) {
 		this.termin = termin;
@@ -29,8 +29,9 @@ public class Terminvorschlag implements Serializable {
 
 	
 	/**Einzelnes Mitglied akzeptiert Termin, muss niemand mehr akzeptieren wird der Termin zu Termine hinzugefuegt.
-	 * Parameter darf nicht NULL sein
+	 * 
 	 * @param mitglied Das Mitglied das den Termin akzeptiert
+	 * Vorbedingung: Parameter darf nicht NULL sein
 	 */
 	public void accept(Mitglied mitglied) {
 		offen.remove(mitglied);
@@ -43,6 +44,7 @@ public class Terminvorschlag implements Serializable {
 	 * Terminvorschlag wird abgelehnt und verworfen
 	 * @param mitglied Das ablehnende Mitglied
 	 * @param nachricht Grund der Ablehnung
+	 * Vorbedingung: Parameter duerfen nicht NULL sein
 	 */
 	public void decline(Mitglied mitglied, String nachricht) {
 		if (termin.getTeilnehmer().contains(mitglied)) {

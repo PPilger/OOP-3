@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * 
  * @author Christian Kletzander
- * 
+ * Invariante: keine NULL Werte erden zurueckgeliefert.
  */
 
 public class Posten implements Serializable {
@@ -21,11 +21,11 @@ public class Posten implements Serializable {
 	private Date datum;
 
 	/**Legt neuen Posten an.
-	 *  Parameter duerfen nicht NULL sein.
 	 * @param einnahmen
 	 * @param ausgaben
 	 * @param bezeichnung
 	 * @param datum
+	 * Vorbedingung: Parameter duerfen nicht NULL sein.
 	 */
 	public Posten(double einnahmen, double ausgaben, String bezeichnung,
 			Date datum) {
@@ -39,7 +39,7 @@ public class Posten implements Serializable {
 
 	/**
 	 * Selektiert Posten die sich mit angegebenen Zeitraum ueberschneiden
-	 *
+	 * Vorbedingung: Parameter darf nicht NULL sein
 	 */
 	public static class ZeitraumSelektor implements Selector<Posten> {
 

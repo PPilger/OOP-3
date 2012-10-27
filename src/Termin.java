@@ -8,7 +8,7 @@ import java.util.List;
  * Berechnungslehre.
  * 
  * @author Koegler Alexander
- * 
+ * Invariante: liefert keine NULL Werte
  */
 public class Termin implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -28,7 +28,18 @@ public class Termin implements Serializable {
 	private Termin() {
 	}
 
-	//Parameter duerfen nicht NULL sein, private variable orig muss NULL bleiben. Liste darf keine NULL Werte enthalten, oder doppelte eintraege
+	/**
+	 * Legt neuen Termin an
+	 * @param typus
+	 * @param ort
+	 * @param von
+	 * @param bis
+	 * @param ausgaben muss >= 0 sein
+	 * @param einnahmen muss >= 0 sein
+	 * @param teilnehmer
+	 * 
+	 * Vorbedingung: Parameter duerfen nicht NULL sein, private variable orig muss NULL bleiben. Liste darf keine NULL Werte enthalten, oder doppelte eintraege. Double Werte muessen das positives Vorzeichen haben.
+	 */
 	public Termin(Typ typus, Ort ort, Date von, Date bis, double ausgaben,
 			double einnahmen, List<Mitglied> teilnehmer) {
 		this.typus = typus;
@@ -118,7 +129,7 @@ public class Termin implements Serializable {
 	/**
 	 * @author Christian Kletzander
 	 * @param ort
-	 *            ueberspeichern des Ortes, darf nicht NULL sein
+	 * Vorbedingung: Parameter zum ueberspeichern des Ortes darf nicht NULL sein
 	 */
 	public void setOrt(Ort ort) {
 		this.prepareUpdate();
@@ -129,7 +140,7 @@ public class Termin implements Serializable {
 	/**
 	 * @author Christian Kletzander
 	 * @param zeitraum
-	 *            ueberspeichern des Zeitraums, duerfen nicht NULL sein
+	 *  Vorbedingung: Parameter zum ueberspeichern des Zeitraums duerfen nicht NULL sein
 	 */
 	public void setZeitraum(Date von, Date bis) {
 		this.prepareUpdate();
@@ -137,6 +148,11 @@ public class Termin implements Serializable {
 		this.meldeUpdate(orig.zeitraum + " -> " + zeitraum);
 	}
 
+	/**
+	 * 
+	 * @param kosten
+	 * Vorbedingung: Parameter muessen >= 0 sein
+	 */
 	public void setAusgaben(double kosten) {
 		this.prepareUpdate();
 		this.posten = new Posten(posten.getEinnahmen(), kosten,
@@ -145,6 +161,11 @@ public class Termin implements Serializable {
 				+ getAusgaben());
 	}
 
+	/**
+	 * 
+	 * @param umsatz
+	 * Vorbedingung: Parameter muessen >= 0 sein
+	 */
 	public void setEinnahmen(double umsatz) {
 		this.prepareUpdate();
 		this.posten = new Posten(umsatz, posten.getAusgaben(),
@@ -173,7 +194,7 @@ public class Termin implements Serializable {
 	 * ist
 	 * 
 	 * @author Koegler Alexander
-	 * 
+	 * Vorbedingung: Parameter duerfen nicht NULL sein
 	 */
 	public static class TeilnehmerSelektor implements Selector<Termin> {
 		private Mitglied m;
@@ -192,7 +213,7 @@ public class Termin implements Serializable {
 	/**
 	 * Selektiert Termine dessen Zeitraum den angegebenen ueberschneidet
 	 * @author Koegler Alexander
-	 *
+	 * Vorbedingung: Parameter duerfen nicht NULL sein
 	 */
 	public static class ZeitraumSelektor implements Selector<Termin> {
 
@@ -214,7 +235,7 @@ public class Termin implements Serializable {
 	/**
 	 * Selektiert Termine aus, dessen Typ mit dem angegebenen uebereinstimmt
 	 * @author Koegler Alexander
-	 *
+	 * Vorbedingung: Parameter duerfen nicht NULL sein
 	 */
 	public static class TypSelektor implements Selector<Termin> {
 		private Typ typus;

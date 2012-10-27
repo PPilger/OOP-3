@@ -4,7 +4,6 @@ import java.util.List;
  * Eine Sammlung von Mitgliedern.
  * 
  * @author Peter Pilgerstorfer
- * 
  */
 public class Mitglieder extends Selection<Mitglied> {
 	private static final long serialVersionUID = 1L;
@@ -19,6 +18,7 @@ public class Mitglieder extends Selection<Mitglied> {
 	 * 
 	 * @param base
 	 * @param selectors
+	 * 
 	 */
 	private Mitglieder(Mitglieder base, List<Selector<Mitglied>> selectors) {
 		super(base, selectors);
@@ -32,6 +32,7 @@ public class Mitglieder extends Selection<Mitglied> {
 	 * 
 	 * @param selectors
 	 * @return
+	 * Vorbedingung: Parameter durfen nicht NULL sein, Listen keine NULL Elemente enthalten
 	 */
 	public Mitglieder select(List<Selector<Mitglied>> selectors) {
 		return new Mitglieder(this, selectors);

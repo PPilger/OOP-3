@@ -5,7 +5,7 @@ import java.util.List;
  * Eine Sammlung von Songs.
  * 
  * @author Peter Pilgerstorfer
- * 
+ * Invariante: liefert keine NULL Werte zurueck
  */
 public class Songs extends Selection<Song> {
 	private static final long serialVersionUID = 1L;
@@ -31,7 +31,7 @@ public class Songs extends Selection<Song> {
 	 * werden. Aenderungen in der zurueckgegebenen Selektion wirken sich direkt
 	 * auf das Original aus.
 	 * 
-	 * Parameter darf nicht NULL sein 
+	 * Vorbedingung: Parameter darf nicht NULL sein 
 	 * @param selectors
 	 * @return
 	 */
@@ -57,7 +57,7 @@ public class Songs extends Selection<Song> {
 	}
 
 	/**
-	 * Parameter darf nicht NULL sein, oder Elemente die NULL sind enthalten
+	 * Vorbedingung: Parameter darf nicht NULL sein, oder Elemente die NULL sind enthalten
 	 * @param variante
 	 * @return true, wenn alle Selektoren die Variante selektieren, false
 	 *         anderenfalls.

@@ -4,9 +4,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * 
+ * Speichert Personenspezifische Daten, und kann Nachrichten, sowie Terminvorschlaege empfangen
  * @author Christian Kletzander
- * 
+ * Invariante: gibt keine NULL Werte zurueck. Stellt nicht sicher, dass Elemente in einer der Queues eingefuegt werden!
+ * Vorbedingung: Queues duerfen keine NULL Elemente uebergeben werden
  */
 public class Mitglied implements Serializable {
 
@@ -23,7 +24,16 @@ public class Mitglied implements Serializable {
 	private Queue<Terminvorschlag> terminvorschlaege;
 	private boolean ersatzmitglied;
 
-	// Konstruktor
+	/**
+	 * 
+	 * @param name
+	 * @param telNr
+	 * @param instrument
+	 * @param zeitraum
+	 * @param ersatzmitglied
+	 * Vorbedingung: Parameter durfen nicht NULL sein.
+	 * Endbedingung: Queues sind leer
+	 */
 	public Mitglied(String name, String telNr, String instrument,
 			Zeitraum zeitraum, boolean ersatzmitglied) {
 		this.name = name;
@@ -39,10 +49,20 @@ public class Mitglied implements Serializable {
 		return this.zeitraum;
 	}
 
+	/**
+	 * 
+	 * @param nachricht
+	 * Endbedingung: es wird incht sichergestellt, dass Nachricht tatsaechlich in Queue ist.
+	 */
 	public void sende(String nachricht) {
 		this.nachrichten.offer(nachricht);
 	}
 
+	/**
+	 * 
+	 * @param terminvorschlag
+	 * Endbedingung: es wird nicht sichergestellt, dass Nachricht tatsaechlich in Queue ist.
+	 */
 	public void sende(Terminvorschlag terminvorschlag) {
 		this.terminvorschlaege.offer(terminvorschlag);
 	}
@@ -77,7 +97,7 @@ public class Mitglied implements Serializable {
 	 * keine sind.
 	 * 
 	 * @author VHD
-	 * 
+	 * Vorbedingung: Parameter durfen nicht NULL sein
 	 */
 	public static class TypSelector implements Selector<Mitglied> {
 		private boolean isE;
@@ -103,7 +123,7 @@ public class Mitglied implements Serializable {
 	/**
 	 * 
 	 * @author Koegler Alexander
-	 * 
+	 * Vorbedingung: Parameter durfen nicht NULL sein
 	 */
 	public static class ZeitraumSelektor implements Selector<Mitglied> {
 		private Date zeitpunkt;
@@ -122,7 +142,7 @@ public class Mitglied implements Serializable {
 	/**
 	 * 
 	 * @author Koegler Alexander
-	 * 
+	 * Vorbedingung: Parameter durfen nicht NULL sein
 	 */
 	public static class InstrumentSelektor implements Selector<Mitglied> {
 		private String instrument;
@@ -140,7 +160,7 @@ public class Mitglied implements Serializable {
 	/**
 	 * 
 	 * @author Koegler Alexander
-	 * 
+	 * Vorbedingung: Parameter durfen nicht NULL sein
 	 */
 	public static class NameSelektor implements Selector<Mitglied> {
 		private String[] namen;
