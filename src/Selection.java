@@ -10,6 +10,8 @@ import java.util.ListIterator;
  * Eine Selektion von Elementen. Welche Elemente sichtbar sind, wird mit
  * Selector-Objekten bestimmt.
  * 
+ * Invariante: Die privaten Listen sind niemals NULL oder enthalten NULL Elemente
+ * 
  * @author Peter Pilgerstorfer
  * 
  */
@@ -31,6 +33,7 @@ public class Selection<T> implements Iterable<T>, Serializable {
 	 * arbeitet. Die uebergebenen Selektoren werden zusaetzlich zu den in
 	 * <code>base</code> bestehenden uebernommen.
 	 * 
+	 * Vorbedingung: Parameter duerfen nicht NULL sein, und keine Elemente enhalten die NULL sind
 	 * @param base
 	 * @param selectors
 	 */
@@ -68,6 +71,7 @@ public class Selection<T> implements Iterable<T>, Serializable {
 	/**
 	 * Fuegt ein Element zur Liste hinzu.
 	 * 
+	 * Vorbedingung: Parameter darf nicht NULL sein.
 	 * @param element
 	 */
 	public boolean add(T element) {
@@ -121,6 +125,7 @@ public class Selection<T> implements Iterable<T>, Serializable {
 	}
 
 	/**
+	 * Vorbedingung: Parameter darf nicht NULL sein
 	 * @param element
 	 * @return true, wenn alle Selektoren das Element selektieren, false
 	 *         anderenfalls.

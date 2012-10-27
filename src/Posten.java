@@ -21,7 +21,7 @@ public class Posten implements Serializable {
 	private Date datum;
 
 	/**Legt neuen Posten an.
-	 * Parameter duerfen nicht NULL sein.
+	 *  Parameter duerfen nicht NULL sein.
 	 * @param einnahmen
 	 * @param ausgaben
 	 * @param bezeichnung
