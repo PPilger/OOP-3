@@ -4,6 +4,48 @@ import java.util.Date;
 import java.util.List;
 import java.util.Queue;
 
+/**
+ * SCHLECHT: Warum wir keine 5 schlechten Teile in unserem Code gefunden haben:
+ * 
+ * 1) Code Wiederverwendung
+ * 
+ * - Die Selektionslogik ist gesammelt in der Klasse Selection zu finden. Damit
+ * ist sie fuer Termine, Mitglieder, ... gleichermassen vorhanden.
+ * 
+ * - Die Selektoren erlauben das einmalige Implementieren von Funktionen, die
+ * auf eine ausgewaehlte Menge von Eintraegen zugreifen (Selection.remove(),
+ * GuV.getEinnahmen(), ...).
+ * 
+ * 2) Starker Klassenzusammenhalt
+ * 
+ * - Operationen auf Objektvariablen sind grossteils in der jeweiligen Klasse
+ * definiert. Also hauptsaechlich Ausgabe (toString()) und Selektoren.
+ * 
+ * - Operationen auf mehrere Elemente sind in den jeweiligen Selection Klassen
+ * definiert (Selection.remove(), GuV.getEinnahmen(), ...).
+ * 
+ * - Wie Termine, Songs, ... ausgewaehlt werden weiss ausschliesslich die
+ * betroffene Klasse (Termin, Song, ...).
+ * 
+ * 3) Schwache Objektkopplung
+ * 
+ * Aufgrund der komplexeren Aufgaben wurde die Objektkopplung jedoch etwas
+ * erhoeht (zB Terminvorschlag, der auf Methoden aus verschiedenen Objekten
+ * zugreifen muss)
+ * 
+ * - Durch das Selektor-Konzept kann die Auswahllogik ohne Wissen ueber die
+ * darin gespeicherten Elemente implementiert werden - Die jeweiligen
+ * Selection-Klassen sind (meistens) nur mit den entsprechenden Elementtypen
+ * "gekoppelt". Diese Kopplung ist fuer die Implementierung einiger
+ * Funktionalitaeten jedoch notwendig (zb Termine.getEinnahmen()).
+ * 
+ * - Die Klasse Band hat zwar Referenzen auf Objekte vieler verschiedener
+ * Klassen, benoetigt aber nur deren Grundfunktionalitaet (Erzeugen,
+ * Selektieren).
+ * 
+ * @author Peter Pilgerstorfer
+ * 
+ */
 public class Test {
 	private static Calendar kalender = Calendar.getInstance();
 
