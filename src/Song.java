@@ -5,8 +5,6 @@ import java.util.List;
 /**
  * 
  * @author Christian Kletzander
- * Vorbedingung: Liste darf nicht NULL sein, oder Elemente die NULL sind enthalten
- * Invariante: liefert keine NULL Werte zurueck
  */
 public class Song implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -16,7 +14,7 @@ public class Song implements Serializable {
 	private List<Variante> varianten;
 	 
 	/** 
-	 * Legt neuen Song an
+	 * NOTE: Legt neuen Song an
 	 * @param name
 	 * @param zeitraum 
 	 * @param varianten Liste darf nicht NULL sein, oder Elemente die NULL sind enthalten
@@ -28,6 +26,11 @@ public class Song implements Serializable {
 		this.varianten = varianten;
 	}
 	
+	/**
+	 * 
+	 * @return Variante
+	 * Nachbedinung: liefert keinen NULL Wert zurueck
+	 */
 	public List<Variante> getVarianten() {
 		return varianten;
 	}
@@ -41,18 +44,26 @@ public class Song implements Serializable {
 	}
 
 	/**
-	 * Abgleich ob Datum im Zeitraum enthalten ist
+	 * NOTE: Abgleich ob Datum im Zeitraum enthalten ist
 	 * @author Koegler Alexander
-	 * Vorbedingung: Parameter duerfen nicht NULL sein
+	 *
 	 */
 	public static class ZeitpunktSelektor implements Selector<Song> {
 		private Date zeitpunkt;
 
+		/**
+		 * 
+		 * @param zeitpunkt
+		 *  Vorbedingung: Parameter darf nicht NULL sein
+		 */
 		public ZeitpunktSelektor(Date zeitpunkt) {
 			this.zeitpunkt = zeitpunkt;
 		}
 
 		@Override
+		/**
+		 *  Vorbedingung: Parameter darf nicht NULL sein
+		 */
 		public boolean select(Song item) {
 			return item.zeitraum.inZeitraum(zeitpunkt);
 		}

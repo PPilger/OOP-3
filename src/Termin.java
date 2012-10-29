@@ -4,11 +4,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Speichert Ort, Zeitraum, Dauer ab. Bietet Methoden fuer die kaufmaennische
+ * NOTE: Speichert Ort, Zeitraum, Dauer ab. Bietet Methoden fuer die kaufmaennische
  * Berechnungslehre.
  * 
  * @author Koegler Alexander
- * Invariante: liefert keine NULL Werte
  */
 public class Termin implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -18,11 +17,11 @@ public class Termin implements Serializable {
 	private Zeitraum zeitraum;
 	private Posten posten;
 
-	// aenderungen sind nicht zugelassen, duerfen nur mittels methoden der klasse veraendert werden
+	// NOTE: aenderungen sind nicht zugelassen, duerfen nur mittels methoden der klasse veraendert werden
 	// Liste darf keine NULL Werte enthalten, oder doppelte eintraege
 	private List<Mitglied> teilnehmer;
 
-	//speichert vorhergehenden zustand des Objekts (UNDO), ist NULL wenn instanziert, oder nichts mehr rueckgaengig gemacht werden kann
+	//NOTE: speichert vorhergehenden zustand des Objekts (UNDO), ist NULL wenn instanziert, oder nichts mehr rueckgaengig gemacht werden kann
 	private Termin orig;
 
 	private Termin() {
@@ -58,15 +57,25 @@ public class Termin implements Serializable {
 		return posten;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * Nachbedingung: liefert Zahl >= 0 zurueck
+	 */
 	public double getAusgaben() {
 		return posten.getAusgaben();
 	}
 
+	/**
+	 * 
+	 * @return
+	 * Nachbedingung: liefert Zahl >= 0 zurueck
+	 */
 	public double getEinnahmen() {
 		return posten.getEinnahmen();
 	}
 
-	/**Liste darf keine NULL Werte enthalten, oder doppelte eintraege.
+	/**Vorbedingung: Liste darf keine NULL Werte enthalten, oder doppelte eintraege.
 	 * @return Teilnehmerliste. Diese darf nicht geaendert werden!
 	 */
 	public List<Mitglied> getTeilnehmer() {
@@ -80,19 +89,19 @@ public class Termin implements Serializable {
 		Termin other = new Termin();
 		other.typus = typus;
 
-		// flache kopie (kann nicht geaendert werden, da privat)
+		// NOTE: flache kopie (kann nicht geaendert werden, da privat)
 		other.zeitraum = zeitraum;
 
-		// flache kopie (eine aenderung in ort aendert nichts an der bedeutung)
+		// NOTE: flache kopie (eine aenderung in ort aendert nichts an der bedeutung)
 		other.ort = ort;
 
-		// flache kopie (unveraenderbar)
+		// NOTE: flache kopie (unveraenderbar)
 		other.posten = posten;
 
-		// flache kopie (aenderungen sind nicht zugelassen)
+		// NOTE: flache kopie (aenderungen sind nicht zugelassen)
 		other.teilnehmer = teilnehmer;
 
-		// haenge other hinter this in die historie ein
+		// NOTE: haenge other hinter this in die historie ein
 		other.orig = orig;
 		this.orig = other;
 	}
@@ -115,13 +124,14 @@ public class Termin implements Serializable {
 	}
 
 	/**
-	 * Benachrichtigt alle Teilnehmer ueber die gemachte Aenderung.
+	 * NOTE: Benachrichtigt alle Teilnehmer ueber die gemachte Aenderung.
 	 * @param aenderung
+	 * Nachbedinung: stellt nicht sicher, dass Teilnehmer benachrichtigt werden
 	 */
 	private void meldeUpdate(String aenderung) {
 		for (Mitglied t : teilnehmer) {
 			assert(t != null);
-			//t darf nicht doppelt in teilnehmer vorhanden sein
+			//NOTE: t darf nicht doppelt in teilnehmer vorhanden sein
 			t.sende(orig + " wurde geaendert: " + aenderung);
 		}
 	}
@@ -130,6 +140,7 @@ public class Termin implements Serializable {
 	 * @author Christian Kletzander
 	 * @param ort
 	 * Vorbedingung: Parameter zum ueberspeichern des Ortes darf nicht NULL sein
+	 * Nachbedinung: stellt nicht sicher, dass Teilnehmer benachrichtigt werden
 	 */
 	public void setOrt(Ort ort) {
 		this.prepareUpdate();
@@ -141,6 +152,7 @@ public class Termin implements Serializable {
 	 * @author Christian Kletzander
 	 * @param zeitraum
 	 *  Vorbedingung: Parameter zum ueberspeichern des Zeitraums duerfen nicht NULL sein
+	 *  Nachbedinung: stellt nicht sicher, dass Teilnehmer benachrichtigt werden
 	 */
 	public void setZeitraum(Date von, Date bis) {
 		this.prepareUpdate();
@@ -152,6 +164,7 @@ public class Termin implements Serializable {
 	 * 
 	 * @param kosten
 	 * Vorbedingung: Parameter muessen >= 0 sein
+	 * Nachbedinung: stellt nicht sicher, dass Teilnehmer benachrichtigt werden
 	 */
 	public void setAusgaben(double kosten) {
 		this.prepareUpdate();
@@ -165,6 +178,7 @@ public class Termin implements Serializable {
 	 * 
 	 * @param umsatz
 	 * Vorbedingung: Parameter muessen >= 0 sein
+	 * Nachbedinung: stellt nicht sicher, dass Teilnehmer benachrichtigt werden
 	 */
 	public void setEinnahmen(double umsatz) {
 		this.prepareUpdate();

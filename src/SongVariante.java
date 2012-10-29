@@ -1,15 +1,15 @@
 /**
- * Repraesentiert einen Song in einer bestimmten Variante
+ * NOTE:Repraesentiert einen Song in einer bestimmten Variante
  * 
  * @author Peter Pilgerstorfer
- * Invariante: keine NULL Werte werden zurueck geliefert
+ * 
  */
 public class SongVariante {
 	private Song song;
 	private Variante variante;
 
 	/**
-	 * Verknuepft eine bestehende Variante mit Song
+	 * NOTE: Verknuepft eine bestehende Variante mit Song
 	 * @param song
 	 * @param variante
 	 * Vorbedinung: Parameter duerfen nicht NULL sein
@@ -19,10 +19,17 @@ public class SongVariante {
 		this.variante = variante;
 	}
 
+	/**
+	 * Invariante: keine NULL Werte werden zurueck geliefert
+	 */
 	public Song getSong() {
 		return song;
 	}
 
+	/** 
+	 * @return
+	 * Invariante: keine NULL Werte werden zurueck geliefert
+	 */
 	public Variante getVariante() {
 		return variante;
 	}
