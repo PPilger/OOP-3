@@ -2,7 +2,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Specihert Ort mit zugehoeriger Infrastruktur
+ * NOTE: Speichert Ort mit zugehoeriger Infrastruktur
  * @author VHD
  * Invariante: gibt keine NULL Werte zurueck
  */
@@ -34,7 +34,7 @@ public class Ort implements Serializable {
 	/**
 	 * 
 	 * @author Koegler Alexander
-	 * Vorbedingung: Parameter darf nicht NULL sein
+	 * 
 	 */
 	public static class BezeichnungSelektor implements Selector<Ort> {
 
@@ -42,11 +42,12 @@ public class Ort implements Serializable {
 		private boolean enthaelt;
 
 		/**
-		 * Stellt den Selektor so ein, dass Elemente erfolgreich verglichen
+		 * NOTE: Stellt den Selektor so ein, dass Elemente erfolgreich verglichen
 		 * werden, wenn die bezeichnung einander eins zu eins gleichen
 		 * 
 		 * @param bezeichnung
 		 *            die zu pruefende bezeichnung
+		 * Vorbedingung: Parameter darf nicht NULL sein
 		 */
 		public BezeichnungSelektor(String bezeichnung) {
 			this.name = bezeichnung;
@@ -81,22 +82,22 @@ public class Ort implements Serializable {
 			}
 		}
 	}
-
-	/**
-	 * 
-	 * @author VHD
-	 * Vorbedingung: Parameter duerfen nicht NULL sein
-	 */
 	public static class InfrastrukturSelektor implements Selector<Ort> {
 		private String name;
 
+		/**
+		 * 
+		 * @author VHD
+		 * Vorbedingung: Parameter duerfen nicht NULL sein
+		 */
 		public InfrastrukturSelektor(String einrichtung) {
 			this.name = einrichtung;
 		}
 
 		@Override
 		/**
-		 * ueberprueft ob die Liste der infrastrukuren ein element mit der selben bezeichnung enthaelt
+		 * NOTE: ueberprueft ob die Liste der infrastrukuren ein element mit der selben bezeichnung enthaelt
+		 * Vorbedingung: Parameter duerfen nicht NULL sein
 		 */
 		public boolean select(Ort item) {
 			for (String str : item.infrastruktur) {

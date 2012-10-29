@@ -4,29 +4,32 @@ import java.util.List;
 /**
  * Eine Sammlung von Songs.
  * 
- * @author Peter Pilgerstorfer
- * Invariante: liefert keine NULL Werte zurueck
+ * @author Peter Pilgerstorfer * 
  */
 public class Songs extends Selection<Song> {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * FEHLER: hier passiert nichts
+	 */
 	public Songs() {
 	}
 
 	/**
-	 * Erstelle eine neue Song Sammlung die auf den selben Daten wie
+	 * NOTE: Erstelle eine neue Song Sammlung die auf den selben Daten wie
 	 * <code>base</code> arbeitet. Es sind jedoch nur Elemente sichtbar, die von
 	 * den Selektoren selektiert werden.
 	 * 
 	 * @param base
-	 * @param selectors Liste darf nicht NULL sein, oder Elemente enthalten die NULL sind
+	 * @param selectors
+	 * Vorbedingung: Liste darf nicht NULL sein, oder Elemente enthalten die NULL sind
 	 */
 	private Songs(Songs base, List<Selector<Song>> selectors) {
 		super(base, selectors);
 	}
 
 	/**
-	 * Liefert eine Selektion der in diesem Objekt gespeicherten Songs. Mit den
+	 * NOTE: Liefert eine Selektion der in diesem Objekt gespeicherten Songs. Mit den
 	 * uebergebenen Selektoren kann bestimmt werden, welche Songs selektiert
 	 * werden. Aenderungen in der zurueckgegebenen Selektion wirken sich direkt
 	 * auf das Original aus.
@@ -39,11 +42,17 @@ public class Songs extends Selection<Song> {
 		return new Songs(this, selectors);
 	}
 
+	/**
+	 * 
+	 * @return
+	 * Nachbedingung: liefert instanzierte befuellte Liste zurueck
+	 */
 	public List<SongVariante> getSongVarianten() {
 		return getSongVarianten(new ArrayList<Selector<Variante>>());
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Liefert eine Selektion der in diesem Objekt gespeicherten SongVarianten. Mit den
 	 * uebergebenen Selektoren kann bestimmt werden, welche Songs selektiert 
 	 * werden. Aenderungen in der zurueckgegebenen Selektion wirken sich direkt auf
@@ -55,6 +64,13 @@ public class Songs extends Selection<Song> {
 	 * @return Eine selektierte Liste mit SongVariante-Objekte
 	 */
 	
+=======
+	 * 
+	 * @param selectors
+	 * @return
+	 * Nachbedingung: liefert befuellte instanzierte Liste zurueck
+	 */
+>>>>>>> branch 'master' of git@github.com:PPilger/OOP-3.git
 	public List<SongVariante> getSongVarianten(
 			List<Selector<Variante>> selectors) {
 		List<SongVariante> songVarianten = new ArrayList<SongVariante>();

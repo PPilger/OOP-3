@@ -1,7 +1,7 @@
 import java.util.List;
 
 /**
- * Eine Sammlung von Mitgliedern.
+ * NOOTE: Eine Sammlung von Mitgliedern.
  * 
  * @author Peter Pilgerstorfer
  */
@@ -12,20 +12,20 @@ public class Mitglieder extends Selection<Mitglied> {
 	}
 
 	/**
-	 * Erstelle eine neue Mitglieder Sammlung die auf den selben Daten wie
+	 * NOTE: Erstelle eine neue Mitglieder Sammlung die auf den selben Daten wie
 	 * <code>base</code> arbeitet. Es sind jedoch nur Elemente sichtbar, die von
 	 * den Selektoren selektiert werden.
 	 * 
 	 * @param base
 	 * @param selectors
-	 * 
+	 * Vorbedingung: Parameter durfen nicht NULL sein, Listen keine NULL Elemente enthalten
 	 */
 	private Mitglieder(Mitglieder base, List<Selector<Mitglied>> selectors) {
 		super(base, selectors);
 	}
 
 	/**
-	 * Liefert eine Selektion der in diesem Objekt gespeicherten Mitglieder. Mit
+	 * NOTE: Liefert eine Selektion der in diesem Objekt gespeicherten Mitglieder. Mit
 	 * den uebergebenen Selektoren kann bestimmt werden, welche Mitglieder
 	 * selektiert werden. Aenderungen in der zurueckgegebenen Selektion wirken
 	 * sich direkt auf das Original aus.

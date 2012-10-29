@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * Speichert Personenspezifische Daten, und kann Nachrichten, sowie Terminvorschlaege empfangen
+ * NOTE: Speichert Personenspezifische Daten, und kann Nachrichten, sowie Terminvorschlaege empfangen
  * @author Christian Kletzander
  * Invariante: gibt keine NULL Werte zurueck. Stellt nicht sicher, dass Elemente in einer der Queues eingefuegt werden!
  * Vorbedingung: Queues duerfen keine NULL Elemente uebergeben werden
@@ -52,7 +52,7 @@ public class Mitglied implements Serializable {
 	/**
 	 * 
 	 * @param nachricht
-	 * Endbedingung: es wird incht sichergestellt, dass Nachricht tatsaechlich in Queue ist.
+	 * Endbedingung: es wird nicht sichergestellt, dass Nachricht tatsaechlich in Queue ist.
 	 */
 	public void sende(String nachricht) {
 		this.nachrichten.offer(nachricht);
@@ -93,7 +93,7 @@ public class Mitglied implements Serializable {
 	}
 
 	/**
-	 * Gibt entweder Mitglieder die Ersatzmitglieder sind aus, oder jene die
+	 * NOTE: Gibt entweder Mitglieder die Ersatzmitglieder sind aus, oder jene die
 	 * keine sind.
 	 * 
 	 * @author VHD

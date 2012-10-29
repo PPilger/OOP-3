@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 /**
- * Eine Selektion von Elementen. Welche Elemente sichtbar sind, wird mit
+ * NOTE: Eine Selektion von Elementen. Welche Elemente sichtbar sind, wird mit
  * Selector-Objekten bestimmt.
  * 
  * @author Peter Pilgerstorfer
@@ -20,6 +20,9 @@ public class Selection<T> implements Iterable<T>, Serializable {
 	private List<T> removed;
 	private transient List<Selector<T>> selectors;
 
+	/**
+	 * Nachbedinung: alle privaten Listen sind instanziert
+	 */
 	public Selection() {
 		this.list = new ArrayList<T>();
 		this.removed = new ArrayList<T>();
@@ -27,7 +30,7 @@ public class Selection<T> implements Iterable<T>, Serializable {
 	}
 
 	/**
-	 * Erstelle eine neue Sicht die auf den selben Daten wie <code>base</code>
+	 * NOTE: Erstelle eine neue Sicht die auf den selben Daten wie <code>base</code>
 	 * arbeitet. Die uebergebenen Selektoren werden zusaetzlich zu den in
 	 * <code>base</code> bestehenden uebernommen.
 	 *  
@@ -69,7 +72,7 @@ public class Selection<T> implements Iterable<T>, Serializable {
 	}
 
 	/**
-	 * Fuegt ein Element zur Liste hinzu.
+	 * NOTE: Fuegt ein Element zur Liste hinzu.
 	 * 
 	 * Vorbedingung: Parameter darf nicht NULL sein.
 	 * @param element
@@ -79,7 +82,7 @@ public class Selection<T> implements Iterable<T>, Serializable {
 	}
 
 	/**
-	 * Entfernt alle selektierten Elemente.
+	 * NOTE: Entfernt alle selektierten Elemente.
 	 * 
 	 * @return die Anzahl der entfernten Elemente
 	 * Nachbedingung: liefert int Wert >= 0 zurueck
@@ -98,9 +101,9 @@ public class Selection<T> implements Iterable<T>, Serializable {
 	}
 
 	/**
-	 * Stellt alle selektierten, geloeschten Elemente wieder her.
+	 * NOTE: Stellt alle selektierten, geloeschten Elemente wieder her.
 	 * 
-	 * Nachbedingung: fuegt kein oder mehrere Elemente in die aktuelle Liste
+	 * Nachbedingung: fuegt kein oder mehrere Elemente in die aktuelle Liste hinzu
 	 */
 	public void restore() {
 		Iterator<T> removedIter = removedIterator();
@@ -129,7 +132,7 @@ public class Selection<T> implements Iterable<T>, Serializable {
 	}
 
 	/**
-	 * Vorbedingung: Parameter darf nicht NULL sein
+	 * NOTE: Vorbedingung: Parameter darf nicht NULL sein
 	 * @param element
 	 * @return true, wenn alle Selektoren das Element selektieren, false
 	 *         anderenfalls.
@@ -144,7 +147,7 @@ public class Selection<T> implements Iterable<T>, Serializable {
 	}
 
 	/**
-	 * Gibt die Selection im Format einer gewoehnlichen java.util.Collection
+	 * NOTE: Gibt die Selection im Format einer gewoehnlichen java.util.Collection
 	 * zurueck.
 	 * Nachbedingung: liefert gueltiges String-Objekt zurueck
 	 */
@@ -169,7 +172,7 @@ public class Selection<T> implements Iterable<T>, Serializable {
 	}
 
 	/**
-	 * Initialisiert die Selektoren, da Selektoren nicht serialisierbar sind.
+	 * NOTE: Initialisiert die Selektoren, da Selektoren nicht serialisierbar sind.
 	 * 
 	 * @param in
 	 * @throws IOException
@@ -182,7 +185,7 @@ public class Selection<T> implements Iterable<T>, Serializable {
 	}
 
 	/**
-	 * Erstellt einen neuen Iterator, der alle selektierten Elemente
+	 * NOTE: Erstellt einen neuen Iterator, der alle selektierten Elemente
 	 * durchlaeuft.
 	 * 
 	 * Elemente die von diesem Iterator entfernt werden, koennen mit
@@ -194,7 +197,7 @@ public class Selection<T> implements Iterable<T>, Serializable {
 	}
 
 	/**
-	 * Erstellt einen neuen Iterator, der alle selektierten, geloeschten
+	 * NOTE: Erstellt einen neuen Iterator, der alle selektierten, geloeschten
 	 * Elemente durchlaeuft.
 	 * 
 	 * Elemente die von diesem Iterator entfernt werden, sind nicht
@@ -205,12 +208,11 @@ public class Selection<T> implements Iterable<T>, Serializable {
 	}
 
 	/**
-	 * Repraesentiert einen Iterator, der durch alle selektierten Elemente
+	 * NOTE: Repraesentiert einen Iterator, der durch alle selektierten Elemente
 	 * iteriert.
 	 * 
 	 * @author Peter Pilgerstorfer
-	 * Vorbedingung: Listen duerfen keine NULL Elemente enthalten, oder NULL sein (ausg. removed)
-	 * Invariante: nur next() kann NULL zurueckliefern (hasNext() Ueberpruefung), Elemente koennen dann wiederhergestellt werden sofern remove nicht NULL ist
+	 * 
 	 */
 	private class SelectionIterator implements Iterator<T> {
 		private Collection<T> removed; // Collection aller entfernten Elemente
@@ -218,6 +220,11 @@ public class Selection<T> implements Iterable<T>, Serializable {
 		private T current; // das aktuelle Element
 		private T next; // das naechste selektierte Element, bzw. null am Ende
 
+		/**
+		 * 
+		 * @param source
+		 * Vorbedingung: Listen darf keine NULL Elemente enthalten, oder NULL sein
+		 */
 		public SelectionIterator(List<T> source) {
 			this(source, null);
 		}
@@ -226,6 +233,7 @@ public class Selection<T> implements Iterable<T>, Serializable {
 		 * @param source
 		 * @param removed
 		 *            die Collection wo entfernte Elemente gespeichert werden
+		 *  Vorbedingung: Listen duerfen keine NULL Elemente enthalten, oder NULL sein (ausg. removed)
 		 */
 		public SelectionIterator(List<T> source, Collection<T> removed) {
 			this.sourceIter = source.listIterator();
@@ -236,6 +244,8 @@ public class Selection<T> implements Iterable<T>, Serializable {
 
 		/**
 		 * @return das naechste selektierte Element
+		 * 
+		 * Nachbedingung: liefert NULL zurueck oder das naechste Element des Iterator Aufrufs
 		 */
 		private T nextSelected() {
 			while (sourceIter.hasNext()) {
@@ -266,10 +276,15 @@ public class Selection<T> implements Iterable<T>, Serializable {
 		}
 
 		@Override
+		/**
+		 * NOTE: Loescht Element
+		 * Nachbedingung: Element wiederherstellbar, sofern removed Liste nicht null ist
+		 *
+		 */
 		public void remove() {
 			T previous = null;
 
-			// Der Iterator steht schon auf der Position des naechsten
+			// NOTE: Der Iterator steht schon auf der Position des naechsten
 			// Elementes. Daher muss zuerst wieder zur aktuellen Position
 			// zurueckgekehrt werden.
 			while (sourceIter.hasPrevious() && previous != current) {
@@ -278,7 +293,7 @@ public class Selection<T> implements Iterable<T>, Serializable {
 
 			sourceIter.remove();
 
-			// Der Iterator wird wieder aufs naechste Element gesetzt
+			// NOTE: Der Iterator wird wieder aufs naechste Element gesetzt
 			nextSelected();
 
 			if (removed != null) {

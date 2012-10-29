@@ -10,9 +10,6 @@ import java.util.Date;
 
 public class Posten implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private double einnahmen;
@@ -20,12 +17,12 @@ public class Posten implements Serializable {
 	private String bezeichnung;
 	private Date datum;
 
-	/**Legt neuen Posten an.
+	/**NOTE: Legt neuen Posten an.
 	 * @param einnahmen
 	 * @param ausgaben
 	 * @param bezeichnung
 	 * @param datum
-	 * Vorbedingung: Parameter duerfen nicht NULL sein.
+	 * Vorbedingung: Parameter duerfen nicht NULL sein. double Werte muessen >= 0 sein.
 	 */
 	public Posten(double einnahmen, double ausgaben, String bezeichnung,
 			Date datum) {
@@ -39,16 +36,23 @@ public class Posten implements Serializable {
 
 	/**
 	 * Selektiert Posten die sich mit angegebenen Zeitraum ueberschneiden
-	 * Vorbedingung: Parameter darf nicht NULL sein
 	 */
 	public static class ZeitraumSelektor implements Selector<Posten> {
 
 		private Zeitraum zeitraum;
 
+		/**
+		 * 
+		 * @param zeitraum
+		 * Vorbedingung: Parameter darf nicht NULL sein
+		 */
 		public ZeitraumSelektor(Zeitraum zeitraum) {
 			this.zeitraum = zeitraum;
 		}
 
+		/**
+		 * Vorbedingung: Parameter darf nicht NULL sein
+		 */
 		@Override
 		public boolean select(Posten item) {
 			return this.zeitraum.inZeitraum(item.datum);
@@ -56,10 +60,21 @@ public class Posten implements Serializable {
 
 	}
 
+	/**
+	 * 
+	 * @return Einnahmen
+	 * Nachbedingung: gibt Zahl >= 0 zurueck
+	 */
 	public double getEinnahmen() {
 		return this.einnahmen;
 	}
 
+	/**
+	 * 
+	 * @return Ausgaben
+	 * 
+	 * Nachbedingung: gibt Zahl >= 0 zurueck
+	 */
 	public double getAusgaben() {
 		return this.ausgaben;
 	}
