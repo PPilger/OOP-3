@@ -52,7 +52,6 @@ public class Songs extends Selection<Song> {
 	}
 
 	/**
-<<<<<<< HEAD
 	 * Liefert eine Selektion der in diesem Objekt gespeicherten SongVarianten. Mit den
 	 * uebergebenen Selektoren kann bestimmt werden, welche Songs selektiert 
 	 * werden. Aenderungen in der zurueckgegebenen Selektion wirken sich direkt auf
@@ -64,13 +63,11 @@ public class Songs extends Selection<Song> {
 	 * @return Eine selektierte Liste mit SongVariante-Objekte
 	 */
 	
-=======
-	 * 
+  /* * 
 	 * @param selectors
 	 * @return
 	 * Nachbedingung: liefert befuellte instanzierte Liste zurueck
 	 */
->>>>>>> branch 'master' of git@github.com:PPilger/OOP-3.git
 	public List<SongVariante> getSongVarianten(
 			List<Selector<Variante>> selectors) {
 		List<SongVariante> songVarianten = new ArrayList<SongVariante>();
