@@ -40,7 +40,6 @@ public class Variante implements Serializable {
 
 		public BezeichnungSelektor(String bezeichnung) {
 			this.bezeichnung = bezeichnung;
-			this.bezeichnung = bezeichnung;
 		}
 
 		@Override

@@ -56,8 +56,8 @@ public class GuV extends Selection<Posten> {
 	 * auch Posten der Termine beruecksichtigt.
 	 * 
 	 * @return Summe der Einnahmen der selektierten Posten
-	 * Vorbedingung: Man erwartet, dass es Posten mit Einnahmen gibt. Falls nicht wird 0 zurückgegeben.
-	 * Nachbedingung: Man erwartet immer einen Wert zwischen 0 und positiv undendlich.
+	 * Vorbedingung: Es muss Posten mit Einnahmen geben. Falls nicht wird 0 zurückgegeben.
+	 * Nachbedingung: Immer ein Wert zwischen 0 und positiv unendlich.
 	 */
 	public double getEinnahmen() {
 		double einnahmen = 0;
@@ -89,8 +89,8 @@ public class GuV extends Selection<Posten> {
 	 * auch Posten der Termine beruecksichtigt.
 	 * 
 	 * @return Summe der Ausgaben der selektierten Posten
-	 * Vorbedingung: Man erwartet, dass es Posten mit Ausgaben gibt. Falls nicht wird 0 zurückgegeben.
-	 * Nachbedingung: Man erwartet immer einen Wert zwischen 0 und negativ undendlich.
+	 * Vorbedingung:Es muss Posten mit Ausgaben geben. Falls nicht wird 0 zurückgegeben.
+	 * Nachbedingung: Immer ein Wert zwischen 0 und negativ unendlich.
 	 */
 	public double getAusgaben() {
 		double ausgaben = 0;
@@ -122,8 +122,8 @@ public class GuV extends Selection<Posten> {
 	 * Posten der Termine beruecksichtigt.
 	 * 
 	 * @return Gesamtgewinn der selektierten Posten
-	 * Vorbedingung: Man erwartet, dass es Posten mit Einnahmen/Ausgaben gibt. Falls nicht wird 0 zurückgegeben.
-	 * Nachbedingung: Man erwartet immer einen Wert aus dem gasamten Spektrum der rationalen Zahlen.
+	 * Vorbedingung: Es muss Posten mit Einnahmen/Ausgaben gibt. Falls nicht wird 0 zurückgegeben.
+	 * Nachbedingung: Immer ein Wert aus dem gasamten Spektrum der rationalen Zahlen.
 	 */
 	public double getGewinn() {
 		double ausgaben = 0;

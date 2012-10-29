@@ -43,6 +43,18 @@ public class Songs extends Selection<Song> {
 		return getSongVarianten(new ArrayList<Selector<Variante>>());
 	}
 
+	/**
+	 * Liefert eine Selektion der in diesem Objekt gespeicherten SongVarianten. Mit den
+	 * uebergebenen Selektoren kann bestimmt werden, welche Songs selektiert 
+	 * werden. Aenderungen in der zurueckgegebenen Selektion wirken sich direkt auf
+	 * das Original aus.
+	 * 
+	 * Vorbedinung: Parameter darf nicht NULL sein
+	 * Nachbedingung: Es existiert eine Liste mit selektierten SongVarianten
+	 * @param selectors
+	 * @return Eine selektierte Liste mit SongVariante-Objekte
+	 */
+	
 	public List<SongVariante> getSongVarianten(
 			List<Selector<Variante>> selectors) {
 		List<SongVariante> songVarianten = new ArrayList<SongVariante>();
