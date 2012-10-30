@@ -10,6 +10,12 @@ import java.util.ListIterator;
  * NOTE: Eine Selektion von Elementen. Welche Elemente sichtbar sind, wird mit
  * Selector-Objekten bestimmt.
  * 
+ * GOOD: Schwache Objektkopplung, starker Klassenzusammenhalt, gute Wartbarkeit.
+ * Die Klasse hat verwendet kaum andere Klassen/Methoden des Programms
+ * (lediglich Selector). Sie enthaelt ausschliesslich Methoden, die die
+ * Selection selbst betreffen. Durch die Vererbung koennen alle Unterklassen
+ * trotzdem auf die Funktionalitaet (remove/restore/add/...) zurueckgreifen.
+ * 
  * Invariante: list, removed und selectors sind ungleich null und enthalten
  * keine Elemente gleich null.
  * 
@@ -86,7 +92,8 @@ public class Selection<T> implements Iterable<T>, Serializable {
 	 * 
 	 * Vorbedingung: element ist ungleich null.
 	 * 
-	 * Nachbedingung: Wenn der Rueckgabewert true ist, wurde element zur Liste hinzugefuegt.
+	 * Nachbedingung: Wenn der Rueckgabewert true ist, wurde element zur Liste
+	 * hinzugefuegt.
 	 * 
 	 * @param element
 	 */
