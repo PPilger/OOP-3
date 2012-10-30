@@ -12,14 +12,15 @@ public class Programm {
 	private List<Band> bands;
 
 	/**
-	 * Erzeugt ein neues Programm und laedt den letzten Zustand aus der Sicherungsdatei.
+	 * NOTE: Erzeugt ein neues Programm und laedt den letzten Zustand aus der Sicherungsdatei.
 	 */
 	public Programm() {
 		this(true);
 	}
 
 	/**
-	 * Erzeugt ein neues Programm
+	 * NOTE: Erzeugt ein neues Programm
+	 * 
 	 * @param load true, wenn der letzte Zustand aus der Sicherung geladen werden soll.
 	 */
 	public Programm(boolean load) {

@@ -14,7 +14,7 @@ public class Termine extends Selection<Termin> {
 	}
 
 	/**
-	 * Erstelle eine neue Termin Sammlung die auf den selben Daten wie
+	 * NOTE: Erstelle eine neue Termin Sammlung die auf den selben Daten wie
 	 * <code>base</code> arbeitet. Es sind jedoch nur Elemente sichtbar, die von
 	 * den Selektoren selektiert werden.
 	 * 
@@ -26,27 +26,30 @@ public class Termine extends Selection<Termin> {
 	}
 
 	/**
-	 * Liefert eine Selektion der in diesem Objekt gespeicherten Termine. Mit
+	 * NOTE: Liefert eine Selektion der in diesem Objekt gespeicherten Termine. Mit
 	 * den uebergebenen Selektoren kann bestimmt werden, welche Termine
 	 * selektiert werden. Aenderungen in der zurueckgegebenen Selektion wirken
 	 * sich direkt auf das Original aus.
 	 * 
+	 * Vorbedingung: Parameter duerfen nicht NULL sein
+	 * 
 	 * @param selectors
 	 * @return
-	 * Vorbedingung: Parameter duerfen nicht NULL sein
 	 */
 	public Termine select(List<Selector<Termin>> selectors) {
 		return new Termine(this, selectors);
 	}
 
-	/**Parameter darf nicht NULL sein
+	/**
+	 * NOTE: Parameter darf nicht NULL sein
 	 * Fuegt einen neuen Termin hinzu, sofern dieser keine Teilnehmer besitzt.
 	 * Um einen Termin mit Teilnehmern anzulegen sollte
 	 * <code>Band.sendeTerminvorschlag()</code> verwendet werden.
 	 *
+	 * Vorbedingung: Parameter darf nicht NULL sein
+	 *
 	 * @return true, wenn der Termin hinzugefuegt wurde, false wenn er
 	 *         Teilnehmer hat.
-	 * Vorbedingung: Parameter darf nicht NULL sein
 	 */
 	@Override
 	public boolean add(Termin termin) {
@@ -58,10 +61,12 @@ public class Termine extends Selection<Termin> {
 	}
 
 	/**
-	 * Fuegt einen Termin zur Liste hinzu, wenn alle Teilnehmer dem
+	 * NOTE: Fuegt einen Termin zur Liste hinzu, wenn alle Teilnehmer dem
 	 * entsprechenden Terminvorschlag zugestimmt haben.
-	 * @param vorschlag
+	 * 
 	 * Vorbedingung: Parameter darf nicht NULL sein
+	 * 
+	 * @param vorschlag
 	 */
 	public void add(Terminvorschlag vorschlag) {
 		if (vorschlag.accepted()) {
@@ -70,10 +75,11 @@ public class Termine extends Selection<Termin> {
 	}
 
 	/**
-	 * Entfernt alle selektierten Termine und benachrichtigt alle Teilnehmer.
+	 * NOTE: Entfernt alle selektierten Termine und benachrichtigt alle Teilnehmer.
+	 * 
+	 * Nachbedingung: liefert int >= 0 zurueck
 	 * 
 	 * @return die Anzahl der entfernten Termine
-	 * Nachbedingung: liefert int >= 0 zurueck
 	 */
 	@Override
 	public int remove() {
@@ -96,11 +102,12 @@ public class Termine extends Selection<Termin> {
 	}
 
 	/**
-	 * Berechnet den Gewinn aller selektierten Termine.
+	 * NOTE: Berechnet den Gewinn aller selektierten Termine.
+	 * 
+	 * Nachbedingung: liefert int >= 0 zurueck
 	 * 
 	 * @param zeitpunkt
 	 * @return der Gewinn
-	 * Nachbedingung: liefert int >= 0 zurueck
 	 */
 	public double getGewinn() {
 		double gewinn = 0;
@@ -113,11 +120,12 @@ public class Termine extends Selection<Termin> {
 	}
 
 	/**
-	 * Berechnet die Kosten aller selektierten Termine.
+	 * NOTE: Berechnet die Kosten aller selektierten Termine.
+	 * 
+	 * Nachbedingung: liefert int >= 0 zurueck
 	 * 
 	 * @param zeitpunkt
 	 * @return die Kosten
-	 * Nachbedingung: liefert int >= 0 zurueck
 	 */
 	public double getKosten() {
 		double kosten = 0;

@@ -15,10 +15,12 @@ public class Song implements Serializable {
 	 
 	/** 
 	 * NOTE: Legt neuen Song an
+	 * 
+	 * Vorbedingung: Parameter duerfen nicht NULL sein
+	 * 
 	 * @param name
 	 * @param zeitraum 
 	 * @param varianten Liste darf nicht NULL sein, oder Elemente die NULL sind enthalten
-	 * Vorbedingung: Parameter duerfen nicht NULL sein
 	 */
 	public Song(String name, Zeitraum zeitraum, List<Variante> varianten) {
 		this.name = name;
@@ -27,9 +29,9 @@ public class Song implements Serializable {
 	}
 	
 	/**
+	 * Nachbedinung: liefert keinen NULL Wert zurueck
 	 * 
 	 * @return Variante
-	 * Nachbedinung: liefert keinen NULL Wert zurueck
 	 */
 	public List<Variante> getVarianten() {
 		return varianten;
@@ -45,16 +47,16 @@ public class Song implements Serializable {
 
 	/**
 	 * NOTE: Abgleich ob Datum im Zeitraum enthalten ist
+	 * 
 	 * @author Koegler Alexander
-	 *
 	 */
 	public static class ZeitpunktSelektor implements Selector<Song> {
 		private Date zeitpunkt;
 
 		/**
+		 * Vorbedingung: Parameter darf nicht NULL sein
 		 * 
 		 * @param zeitpunkt
-		 *  Vorbedingung: Parameter darf nicht NULL sein
 		 */
 		public ZeitpunktSelektor(Date zeitpunkt) {
 			this.zeitpunkt = zeitpunkt;
@@ -71,10 +73,11 @@ public class Song implements Serializable {
 	}
 
 	/**
-	 * Abgleich mit Namen, ignoreCase
-	 * @author Koegler Alexander
-	 * 	 
+	 * NOTE: Abgleich mit Namen, ignoreCase
+	 * 
 	 * Vorbedingung: Parameter duerfen nicht NULL sein
+	 * 
+	 * @author Koegler Alexander
 	 */
 	public static class NameSelektor implements Selector<Song> {
 

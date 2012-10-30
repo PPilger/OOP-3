@@ -3,9 +3,9 @@ import java.text.DateFormat;
 import java.util.Date;
 
 /**
+ * Invariante: keine NULL Werte erden zurueckgeliefert.
  * 
  * @author Christian Kletzander
- * Invariante: keine NULL Werte erden zurueckgeliefert.
  */
 
 public class Posten implements Serializable {
@@ -17,12 +17,15 @@ public class Posten implements Serializable {
 	private String bezeichnung;
 	private Date datum;
 
-	/**NOTE: Legt neuen Posten an.
+	/**
+	 * NOTE: Legt neuen Posten an.
+	 * 
+	 * Vorbedingung: Parameter duerfen nicht NULL sein. double Werte muessen >= 0 sein.
+	 * 
 	 * @param einnahmen
 	 * @param ausgaben
 	 * @param bezeichnung
 	 * @param datum
-	 * Vorbedingung: Parameter duerfen nicht NULL sein. double Werte muessen >= 0 sein.
 	 */
 	public Posten(double einnahmen, double ausgaben, String bezeichnung,
 			Date datum) {
@@ -35,16 +38,16 @@ public class Posten implements Serializable {
 	}
 
 	/**
-	 * Selektiert Posten die sich mit angegebenen Zeitraum ueberschneiden
+	 * NOTE: Selektiert Posten die sich mit angegebenen Zeitraum ueberschneiden
 	 */
 	public static class ZeitraumSelektor implements Selector<Posten> {
 
 		private Zeitraum zeitraum;
 
 		/**
+		 * Vorbedingung: Parameter darf nicht NULL sein
 		 * 
 		 * @param zeitraum
-		 * Vorbedingung: Parameter darf nicht NULL sein
 		 */
 		public ZeitraumSelektor(Zeitraum zeitraum) {
 			this.zeitraum = zeitraum;
@@ -61,19 +64,18 @@ public class Posten implements Serializable {
 	}
 
 	/**
+	 * Nachbedingung: gibt Zahl >= 0 zurueck
 	 * 
 	 * @return Einnahmen
-	 * Nachbedingung: gibt Zahl >= 0 zurueck
 	 */
 	public double getEinnahmen() {
 		return this.einnahmen;
 	}
 
 	/**
+	 * Nachbedingung: gibt Zahl >= 0 zurueck
 	 * 
 	 * @return Ausgaben
-	 * 
-	 * Nachbedingung: gibt Zahl >= 0 zurueck
 	 */
 	public double getAusgaben() {
 		return this.ausgaben;
