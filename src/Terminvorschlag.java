@@ -3,6 +3,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * BAD: Starke Objektkopplung mit Mitglied und Termin,
+ * dies koennte man nur verringern sofern man den Terminvorschlag als eine nicht statische interne Klasse von Termine ausfuehrt.
+ * Dann allerdings muessten dort wieder die Zustimmungen der Mitglieder zu den zugehoerigen Terminen gespeichert werden.
+ * Man benoetigt darueberhinaus zugriff auf die Band selbst (verifizierung der Mindestanzahl an Proben) und deren Termine.
+ * Andererseits wuerde so das hizufuegen eines Terminvorschlags mittels add in die Termin-Liste einen staerkeren Klassenzusammenhalt (Termine, Terminvorschlag, Termin) gewaehrleisten.
+ * Das haette aber einen hohen Aufwand, sowohl bei implementation als auch Wartbarkeit verursacht, wenn man auf eine schwache Objektkopplung setzen wuerde.
+ * 
+ * GOOD: 
  * Invariante: termin, target und offen sind ungleich null.
  * 
  * Invariante: offen enthaelt keine Elemente gleich null. offen enthaelt keine
