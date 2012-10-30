@@ -19,8 +19,8 @@ public class Mitglieder extends Selection<Mitglied> {
 	 * <code>base</code> arbeitet. Es sind jedoch nur Elemente sichtbar, die von
 	 * den Selektoren selektiert werden.
 	 * 
-	 * Vorbedingung: base und selectors sind ungleich NULL. selectors enthaelt
-	 * keine Elemente gleich NULL.
+	 * Vorbedingung: base und selectors sind ungleich null. selectors enthaelt
+	 * keine Elemente gleich null.
 	 * 
 	 * Nachbedinung: das neue Mitglieder Objekt arbeitet auf den selben
 	 * Elementen wie base. Es sind jedoch nur Elemente sichtbar, die mit den
@@ -36,8 +36,8 @@ public class Mitglieder extends Selection<Mitglied> {
 	 * Mitglieder selektiert werden. Aenderungen in der zurueckgegebenen
 	 * Selektion wirken sich direkt auf das Original aus.
 	 * 
-	 * Vorbedingung: selectors ist ungleich NULL und enthaelt keine Elemente
-	 * gleich NULL.
+	 * Vorbedingung: selectors ist ungleich null und enthaelt keine Elemente
+	 * gleich null.
 	 * 
 	 * Nachbedinung: das zurueckgegebene Mitglieder Objekt arbeitet auf den
 	 * selben Elementen wie this. Es sind jedoch nur Elemente sichtbar, die mit

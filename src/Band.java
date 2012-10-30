@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Invariante: Alle Objektvariablen sind ungleich NULL
+ * Invariante: Alle Objektvariablen sind ungleich null
  * 
  * @author Christian Kletzander
  */
@@ -24,7 +24,7 @@ public class Band implements Serializable {
 	private GuV guv;
 
 	/**
-	 * Vorbedingung: name und ausrichtung sind ungleich NULL Nachbedingung: alle
+	 * Vorbedingung: name und ausrichtung sind ungleich null Nachbedingung: alle
 	 * Songs, Termine, Mitglieder, Orte und GuV Posten sind leer
 	 */
 	public Band(String name, String ausrichtung, int minProben) {
@@ -40,22 +40,22 @@ public class Band implements Serializable {
 	}
 
 	/**
-	 * Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
 	 */
 	public Songs getRepertoire() {
 		return this.repertoire;
 	}
 
 	/**
-	 * Vorbedingung: selector ist ungleich NULL Nachbedingung: der Rueckgabewert
-	 * ist ungleich NULL
+	 * Vorbedingung: selector ist ungleich null Nachbedingung: der Rueckgabewert
+	 * ist ungleich null
 	 */
 	public Songs getRepertoire(Selector<Song> selector) {
 		List<Selector<Song>> list = new ArrayList<Selector<Song>>();
@@ -64,26 +64,26 @@ public class Band implements Serializable {
 	}
 
 	/**
-	 * Vorbedingung: selectors ist ungleich NULL und enthaelt keine Elemente
-	 * gleich NULL
+	 * Vorbedingung: selectors ist ungleich null und enthaelt keine Elemente
+	 * gleich null
 	 * 
-	 * Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
 	 */
 	public Songs getRepertoire(List<Selector<Song>> selectors) {
 		return this.repertoire.select(selectors);
 	}
 
 	/**
-	 * Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
 	 */
 	public Termine getTermine() {
 		return this.termine;
 	}
 
 	/**
-	 * Vorbedingung: selector ist ungleich NULL
+	 * Vorbedingung: selector ist ungleich null
 	 * 
-	 * Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
 	 */
 	public Termine getTermine(Selector<Termin> selector) {
 		List<Selector<Termin>> list = new ArrayList<Selector<Termin>>();
@@ -92,26 +92,26 @@ public class Band implements Serializable {
 	}
 
 	/**
-	 * Vorbedingung: selectors ist ungleich NULL und enthaelt keine Elemente
-	 * gleich NULL
+	 * Vorbedingung: selectors ist ungleich null und enthaelt keine Elemente
+	 * gleich null
 	 * 
-	 * Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
 	 */
 	public Termine getTermine(List<Selector<Termin>> selectors) {
 		return this.termine.select(selectors);
 	}
 
 	/**
-	 * Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
 	 */
 	public Mitglieder getMitglieder() {
 		return this.mitglieder;
 	}
 
 	/**
-	 * Vorbedingung: selector ist ungleich NULL
+	 * Vorbedingung: selector ist ungleich null
 	 * 
-	 * Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
 	 */
 	public Mitglieder getMitglieder(Selector<Mitglied> selector) {
 		List<Selector<Mitglied>> list = new ArrayList<Selector<Mitglied>>();
@@ -120,25 +120,25 @@ public class Band implements Serializable {
 	}
 
 	/**
-	 * Vorbedingung: selectors ist ungleich NULL und enthaelt keine Elemente
-	 * gleich NULL
+	 * Vorbedingung: selectors ist ungleich null und enthaelt keine Elemente
+	 * gleich null
 	 * 
-	 * Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
 	 */
 	public Mitglieder getMitglieder(List<Selector<Mitglied>> selectors) {
 		return this.mitglieder.select(selectors);
 	}
 
 	/**
-	 * Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
 	 */
 	public Orte getOrte() {
 		return this.orte;
 	}
 
 	/**
-	 * Vorbedingung: selector ist ungleich NULL Nachbedingung: der Rueckgabewert
-	 * ist ungleich NULL
+	 * Vorbedingung: selector ist ungleich null Nachbedingung: der Rueckgabewert
+	 * ist ungleich null
 	 */
 	public Orte getOrte(Selector<Ort> selector) {
 		List<Selector<Ort>> list = new ArrayList<Selector<Ort>>();
@@ -147,23 +147,23 @@ public class Band implements Serializable {
 	}
 
 	/**
-	 * Vorbedingung: selectors ist ungleich NULL und enthaelt keine Elemente
-	 * gleich NULL Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 * Vorbedingung: selectors ist ungleich null und enthaelt keine Elemente
+	 * gleich null Nachbedingung: der Rueckgabewert ist ungleich null
 	 */
 	public Orte getOrte(List<Selector<Ort>> selectors) {
 		return this.orte.select(selectors);
 	}
 
 	/**
-	 * Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
 	 */
 	public GuV getGuV() {
 		return this.guv;
 	}
 
 	/**
-	 * Vorbedingung: selector ist ungleich NULL Nachbedingung: der Rueckgabewert
-	 * ist ungleich NULL
+	 * Vorbedingung: selector ist ungleich null Nachbedingung: der Rueckgabewert
+	 * ist ungleich null
 	 */
 	public GuV getGuV(Selector<Posten> selector) {
 		List<Selector<Posten>> list = new ArrayList<Selector<Posten>>();
@@ -172,8 +172,8 @@ public class Band implements Serializable {
 	}
 
 	/**
-	 * Vorbedingung: selectors ist ungleich NULL und enthaelt keine Elemente
-	 * gleich NULL Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 * Vorbedingung: selectors ist ungleich null und enthaelt keine Elemente
+	 * gleich null Nachbedingung: der Rueckgabewert ist ungleich null
 	 */
 	public GuV getGuV(List<Selector<Posten>> selectors) {
 		return this.guv.select(selectors);
@@ -247,7 +247,7 @@ public class Band implements Serializable {
 	}
 
 	/**
-	 * Nachbedingung: Der Rueckgabewert ist ungleich NULL
+	 * Nachbedingung: Der Rueckgabewert ist ungleich null
 	 */
 	public String toString() {
 		return this.name + ", " + this.ausrichtung;

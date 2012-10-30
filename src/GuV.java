@@ -1,7 +1,7 @@
 import java.util.List;
 
 /**
- * Invariante: band ist ungleich NULL
+ * Invariante: band ist ungleich null
  * 
  * @author Christian Kletzander
  */
@@ -14,7 +14,7 @@ public class GuV extends Selection<Posten> {
 	/**
 	 * NOTE: Erstellt ein neues Objekt GuV fuer die Klasse Band.
 	 * 
-	 * Vorbedingung: band ist ungleich NULL
+	 * Vorbedingung: band ist ungleich null
 	 * 
 	 * Nachbedingung: das neue GuV Objekt enthaelt keine Posten
 	 * 
@@ -30,8 +30,8 @@ public class GuV extends Selection<Posten> {
 	 * <code>base</code> arbeitet. Es sind jedoch nur Elemente sichtbar, die von
 	 * den Selektoren selektiert werden.
 	 * 
-	 * Vorbedingung: band, base und selectors sind ungleich NULL, selectors
-	 * enthaelt keine Elemente gleich NULL
+	 * Vorbedingung: band, base und selectors sind ungleich null, selectors
+	 * enthaelt keine Elemente gleich null
 	 * 
 	 * Nachbedinung: das neue GuV Objekt arbeitet auf den selben Elementen wie
 	 * base. Es sind jedoch nur Elemente sichtbar, die mit den selectors
@@ -53,8 +53,8 @@ public class GuV extends Selection<Posten> {
 	 * selektiert werden. Aenderungen in der zurueckgegebenen Selektion wirken
 	 * sich direkt auf das Original aus.
 	 * 
-	 * Vorbedingung: selectors ist ungleich NULL und enthaelt keine Elemente
-	 * gleich NULL
+	 * Vorbedingung: selectors ist ungleich null und enthaelt keine Elemente
+	 * gleich null
 	 * 
 	 * Nachbedinung: das zurueckgegebene GuV Objekt arbeitet auf den selben
 	 * Elementen wie this. Es sind jedoch nur Elemente sichtbar, die mit den

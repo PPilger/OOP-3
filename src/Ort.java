@@ -4,7 +4,7 @@ import java.util.List;
 /**
  * NOTE: Speichert Ort mit zugehoeriger Infrastruktur
  * 
- * Invariante: gibt keine NULL Werte zurueck
+ * Invariante: bezeichnung und infrastruktur sind ungleich null. infrastruktur enthaelt keine Elemente gleich null.
  * 
  * @author VHD
  */
@@ -14,16 +14,22 @@ public class Ort implements Serializable {
 	private String bezeichnung;
 	private List<String> infrastruktur;
 
+	/**
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
+	 */
 	public String toString() {
 		return bezeichnung;
 	}
 
+	/**
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
+	 */
 	public String toDetailString() {
 		return bezeichnung + " " + infrastruktur.toString();
 	}
 
 	/**
-	 * Vorbedingung: Parameter darf nicht NULL sein, oder Elemente enthalten die NULL sind
+	 * Vorbedingung: bezeichnung und infrastruktur sind ungleich null
 	 * 
 	 * @param bezeichnung
 	 * @param infrastruktur
@@ -33,11 +39,6 @@ public class Ort implements Serializable {
 		this.infrastruktur = infrastruktur;
 	}
 
-	/**
-	 * 
-	 * @author Koegler Alexander
-	 * 
-	 */
 	public static class BezeichnungSelektor implements Selector<Ort> {
 
 		private String name;
@@ -46,8 +47,6 @@ public class Ort implements Serializable {
 		/**
 		 * NOTE: Stellt den Selektor so ein, dass Elemente erfolgreich verglichen
 		 * werden, wenn die bezeichnung einander eins zu eins gleichen
-		 * 
-		 * Vorbedingung: Parameter darf nicht NULL sein
 		 * 
 		 * @param bezeichnung
 		 *            die zu pruefende bezeichnung
@@ -58,11 +57,9 @@ public class Ort implements Serializable {
 		}
 
 		/**
-		 * Stellt den Selektor so ein, dass Elemente erfolgreich verglichen
+		 * NOTE: Stellt den Selektor so ein, dass Elemente erfolgreich verglichen
 		 * werden, sobald die bezeichnung den im Parameter angegeben String
 		 * enthaelt
-		 * 
-		 * Vorbedingung: Parameter duerfen nicht NULL sein
 		 * 
 		 * @param bezeichnung
 		 *            die zu pruefende bezeichnung
@@ -77,6 +74,9 @@ public class Ort implements Serializable {
 		}
 
 		@Override
+		/**
+		 * Vorbedingung: item ist ungleich null
+		 */
 		public boolean select(Ort item) {
 			if (enthaelt) {
 				// kommt der String nicht vor, wird -1 zurueckgegeben
@@ -89,11 +89,6 @@ public class Ort implements Serializable {
 	public static class InfrastrukturSelektor implements Selector<Ort> {
 		private String name;
 
-		/**
-		 * Vorbedingung: Parameter duerfen nicht NULL sein
-		 * 
-		 * @author VHD
-		 */
 		public InfrastrukturSelektor(String einrichtung) {
 			this.name = einrichtung;
 		}
@@ -102,7 +97,7 @@ public class Ort implements Serializable {
 		/**
 		 * NOTE: ueberprueft ob die Liste der infrastrukuren ein element mit der selben bezeichnung enthaelt
 		 * 
-		 * Vorbedingung: Parameter duerfen nicht NULL sein
+		 * Vorbedingung: item ist ungleich null
 		 */
 		public boolean select(Ort item) {
 			for (String str : item.infrastruktur) {

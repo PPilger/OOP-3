@@ -7,8 +7,8 @@ import java.util.Queue;
  * NOTE: Speichert Personenspezifische Daten, und kann Nachrichten, sowie
  * Terminvorschlaege empfangen
  * 
- * Invariante: keine Objektvariable ist NULL, nachrichten und terminvorschlaege
- * enthalten keine Elemente gleich NULL
+ * Invariante: keine Objektvariable ist null, nachrichten und terminvorschlaege
+ * enthalten keine Elemente gleich null
  * 
  * @author Christian Kletzander
  */
@@ -25,7 +25,7 @@ public class Mitglied implements Serializable {
 	private boolean ersatzmitglied;
 
 	/**
-	 * Vorbedingung: Parameter duerfen nicht NULL sein.
+	 * Vorbedingung: Parameter duerfen nicht null sein.
 	 * 
 	 * Nachbedingung: Queues sind leer
 	 * 
@@ -51,7 +51,7 @@ public class Mitglied implements Serializable {
 	}
 
 	/**
-	 * Vorbedingung: nachricht ist ungleich NULL
+	 * Vorbedingung: nachricht ist ungleich null
 	 * 
 	 * @param nachricht
 	 */
@@ -60,7 +60,7 @@ public class Mitglied implements Serializable {
 	}
 
 	/**
-	 * Vorbedingung: terminvorschlag ist ungleich NULL
+	 * Vorbedingung: terminvorschlag ist ungleich null
 	 * 
 	 * @param terminvorschlag
 	 */
@@ -77,16 +77,16 @@ public class Mitglied implements Serializable {
 	}
 
 	/**
-	 * Nachbedingung: der Rueckgabewert ist ungleich NULL und er enthaelt keine
-	 * Elemente gleich NULL
+	 * Nachbedingung: der Rueckgabewert ist ungleich null und er enthaelt keine
+	 * Elemente gleich null
 	 */
 	public Queue<String> getNachrichten() {
 		return nachrichten;
 	}
 
 	/**
-	 * Nachbedingung: der Rueckgabewert ist ungleich NULL und er enthaelt keine
-	 * Elemente gleich NULL
+	 * Nachbedingung: der Rueckgabewert ist ungleich null und er enthaelt keine
+	 * Elemente gleich null
 	 */
 	public Queue<Terminvorschlag> getTerminvorschlaege() {
 		return terminvorschlaege;
@@ -97,14 +97,14 @@ public class Mitglied implements Serializable {
 	}
 
 	/**
-	 * Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
 	 */
 	public String toString() {
 		return this.name;
 	}
 
 	/**
-	 * Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
 	 */
 	public String toDetailString() {
 		return toString() + " (" + this.instrument + ") " + this.zeitraum
@@ -135,7 +135,7 @@ public class Mitglied implements Serializable {
 
 		@Override
 		/**
-		 * Vorbedingung: item != NULL
+		 * Vorbedingung: item != null
 		 */
 		public boolean select(Mitglied item) {
 			return item.ersatzmitglied == isE;
@@ -146,7 +146,7 @@ public class Mitglied implements Serializable {
 		private Date zeitpunkt;
 
 		/**
-		 * Vorbedingung: zeitpunkt != NULL
+		 * Vorbedingung: zeitpunkt != null
 		 */
 		public ZeitraumSelektor(Date zeitpunkt) {
 			this.zeitpunkt = zeitpunkt;
@@ -154,7 +154,7 @@ public class Mitglied implements Serializable {
 
 		@Override
 		/**
-		 * Vorbedingung: item != NULL
+		 * Vorbedingung: item != null
 		 */
 		public boolean select(Mitglied item) {
 			return item.getZeitraum().inZeitraum(zeitpunkt);
@@ -170,7 +170,7 @@ public class Mitglied implements Serializable {
 
 		@Override
 		/**
-		 * Vorbedingung: item != NULL
+		 * Vorbedingung: item != null
 		 */
 		public boolean select(Mitglied item) {
 			return item.instrument.compareToIgnoreCase(instrument) == 0;
@@ -181,7 +181,7 @@ public class Mitglied implements Serializable {
 		private String[] namen;
 
 		/**
-		 * Vorbedingung: namen enthaelt keine Elemente gleich NULL
+		 * Vorbedingung: namen enthaelt keine Elemente gleich null
 		 */
 		public NameSelektor(String... namen) {
 			this.namen = namen;
@@ -189,7 +189,7 @@ public class Mitglied implements Serializable {
 
 		@Override
 		/**
-		 * Vorbedingung: item != NULL
+		 * Vorbedingung: item ist ungleich null
 		 */
 		public boolean select(Mitglied item) {
 			for (String name : namen) {
