@@ -237,9 +237,9 @@ public class Selection<T> implements Iterable<T>, Serializable {
 	 * NOTE: Repraesentiert einen Iterator, der durch alle selektierten Elemente
 	 * iteriert.
 	 * 
-	 * Invariante: sourceIter ist ungleich NULL
-	 * Invariante: next zeigt auf das naechste selektierte Element
-	 * Invariante: current zeigt auf das aktuelle Element
+	 * Invariante: sourceIter ist ungleich NULL Invariante: next zeigt auf das
+	 * naechste selektierte Element Invariante: current zeigt auf das aktuelle
+	 * Element
 	 * 
 	 * @author Peter Pilgerstorfer
 	 */
@@ -325,16 +325,16 @@ public class Selection<T> implements Iterable<T>, Serializable {
 			while (sourceIter.hasPrevious() && previous != current) {
 				previous = sourceIter.previous();
 			}
-			
-			//Zusicherung: sourceIter steht auf dem aktuellen Element (current)
+
+			// Zusicherung: sourceIter steht auf dem aktuellen Element (current)
 
 			sourceIter.remove();
 
 			// NOTE: Der Iterator wird wieder aufs naechste Element gesetzt
 			nextSelected();
-			
-			//Zusicherung: sourceIter steht auf dem naechsten Element (next)
-			
+
+			// Zusicherung: sourceIter steht auf dem naechsten Element (next)
+
 			if (removed != null) {
 				removed.add(current);
 			}
