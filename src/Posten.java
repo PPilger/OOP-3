@@ -3,7 +3,9 @@ import java.text.DateFormat;
 import java.util.Date;
 
 /**
- * Invariante: keine NULL Werte erden zurueckgeliefert.
+ * Invariante: bezeichnung und datum sind ungleich null.
+ * 
+ * Invariante: einnahmen und ausgaben sind >= 0
  * 
  * @author Christian Kletzander
  */
@@ -20,7 +22,8 @@ public class Posten implements Serializable {
 	/**
 	 * NOTE: Legt neuen Posten an.
 	 * 
-	 * Vorbedingung: Parameter duerfen nicht NULL sein. double Werte muessen >= 0 sein.
+	 * Vorbedingung: bezeichnung und datum sind ungleich null. einnahmen und
+	 * ausgaben sind >= 0
 	 * 
 	 * @param einnahmen
 	 * @param ausgaben
@@ -45,7 +48,7 @@ public class Posten implements Serializable {
 		private Zeitraum zeitraum;
 
 		/**
-		 * Vorbedingung: Parameter darf nicht NULL sein
+		 * Vorbedingung: zeitraum ist ungleich null
 		 * 
 		 * @param zeitraum
 		 */
@@ -54,7 +57,7 @@ public class Posten implements Serializable {
 		}
 
 		/**
-		 * Vorbedingung: Parameter darf nicht NULL sein
+		 * Vorbedingung: item ist ungleich null
 		 */
 		@Override
 		public boolean select(Posten item) {
@@ -64,28 +67,30 @@ public class Posten implements Serializable {
 	}
 
 	/**
-	 * Nachbedingung: gibt Zahl >= 0 zurueck
-	 * 
-	 * @return Einnahmen
+	 * Nachbedingung: der Rueckgabewert ist >= 0
 	 */
 	public double getEinnahmen() {
 		return this.einnahmen;
 	}
 
 	/**
-	 * Nachbedingung: gibt Zahl >= 0 zurueck
-	 * 
-	 * @return Ausgaben
+	 * Nachbedingung: der Rueckgabewert ist >= 0
 	 */
 	public double getAusgaben() {
 		return this.ausgaben;
 	}
 
+	/**
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
+	 */
 	public String toString() {
 		String gewinn = String.format("%+,.2f", (einnahmen - ausgaben));
 		return this.bezeichnung + ": " + gewinn;
 	}
 
+	/**
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
+	 */
 	public String toDetailString() {
 		String datum = DateFormat.getDateInstance().format(this.datum);
 		String einAus = String.format("+%,.2f/-%,.2f", einnahmen, ausgaben);

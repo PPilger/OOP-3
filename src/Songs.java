@@ -4,13 +4,13 @@ import java.util.List;
 /**
  * Eine Sammlung von Songs.
  * 
- * @author Peter Pilgerstorfer * 
+ * @author Peter Pilgerstorfer *
  */
 public class Songs extends Selection<Song> {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * FEHLER: hier passiert nichts
+	 * Nachbedingung: das neue Songs Objekt enthaelt keine Songs
 	 */
 	public Songs() {
 	}
@@ -20,58 +20,54 @@ public class Songs extends Selection<Song> {
 	 * <code>base</code> arbeitet. Es sind jedoch nur Elemente sichtbar, die von
 	 * den Selektoren selektiert werden.
 	 * 
-	 * Vorbedingung: Liste darf nicht NULL sein, oder Elemente enthalten die NULL sind
+	 * Vorbedingung: base und selectors sind ungleich null. selectors enthaelt
+	 * keine Elemente gleich null.
 	 * 
-	 * @param base
-	 * @param selectors
+	 * Nachbedinung: das neue Songs Objekt arbeitet auf den selben Elementen wie
+	 * base. Es sind jedoch nur Elemente sichtbar, die mit den selectors
+	 * selektiert werden.
 	 */
 	private Songs(Songs base, List<Selector<Song>> selectors) {
 		super(base, selectors);
 	}
 
 	/**
-	 * NOTE: Liefert eine Selektion der in diesem Objekt gespeicherten Songs. Mit den
-	 * uebergebenen Selektoren kann bestimmt werden, welche Songs selektiert
-	 * werden. Aenderungen in der zurueckgegebenen Selektion wirken sich direkt
-	 * auf das Original aus.
+	 * NOTE: Liefert eine Selektion der in diesem Objekt gespeicherten Songs.
+	 * Mit den uebergebenen Selektoren kann bestimmt werden, welche Songs
+	 * selektiert werden. Aenderungen in der zurueckgegebenen Selektion wirken
+	 * sich direkt auf das Original aus.
 	 * 
-	 * Vorbedingung: Parameter darf nicht NULL sein 
+	 * Vorbedingung: selectors ist ungleich null und enthaelt keine Elemente
+	 * gleich null.
 	 * 
-	 * @param selectors
-	 * @return
+	 * Nachbedinung: das zurueckgegebene Songs Objekt arbeitet auf den selben
+	 * Elementen wie this. Es sind jedoch nur Elemente sichtbar, die mit den
+	 * selectors selektiert werden.
 	 */
 	public Songs select(List<Selector<Song>> selectors) {
 		return new Songs(this, selectors);
 	}
 
 	/**
-	 * Nachbedingung: liefert instanzierte befuellte Liste zurueck
-	 * 
-	 * @return
+	 * Nachbedingung: der Rueckgabewert ist eine neu initialisierte Liste aus
+	 * Songvarianten, bestehend aus allen Varianten der selektierten Songs.
 	 */
 	public List<SongVariante> getSongVarianten() {
 		return getSongVarianten(new ArrayList<Selector<Variante>>());
 	}
 
 	/**
-	 * Liefert eine Selektion der in diesem Objekt gespeicherten SongVarianten. Mit den
-	 * uebergebenen Selektoren kann bestimmt werden, welche Songs selektiert 
-	 * werden. Aenderungen in der zurueckgegebenen Selektion wirken sich direkt auf
-	 * das Original aus.
+	 * Liefert eine Selektion der in diesem Objekt gespeicherten SongVarianten.
+	 * Mit den uebergebenen Selektoren kann bestimmt werden, welche Songs
+	 * selektiert werden. Aenderungen in der zurueckgegebenen Selektion wirken
+	 * sich direkt auf das Original aus.
 	 * 
-	 * Vorbedinung: Parameter darf nicht NULL sein
-	 * Nachbedingung: Es existiert eine Liste mit selektierten SongVarianten
+	 * Vorbedinung: selectors ist ungleich null
 	 * 
-	 * @param selectors
-	 * @return Eine selektierte Liste mit SongVariante-Objekte
+	 * Nachbedingung: der Rueckgabewert ist eine neu initialisierte Liste aus
+	 * Songvarianten, bestehend aus den selektierten Varianten von den
+	 * selektierten Songs.
 	 */
-	
-   /** 
-    * Nachbedingung: liefert befuellte instanzierte Liste zurueck
-    * 
-    * @param selectors
-    * @return
-    */
 	public List<SongVariante> getSongVarianten(
 			List<Selector<Variante>> selectors) {
 		List<SongVariante> songVarianten = new ArrayList<SongVariante>();
@@ -86,7 +82,8 @@ public class Songs extends Selection<Song> {
 	}
 
 	/**
-	 * Vorbedingung: Parameter darf nicht NULL sein, oder Elemente die NULL sind enthalten
+	 * Vorbedingung: variante und selectors sind ungleich null. selectors
+	 * enthaelt keine Elemente gleich null
 	 * 
 	 * @param variante
 	 * @return true, wenn alle Selektoren die Variante selektieren, false

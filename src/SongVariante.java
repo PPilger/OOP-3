@@ -1,8 +1,9 @@
 /**
  * NOTE:Repraesentiert einen Song in einer bestimmten Variante
  * 
- * @author Peter Pilgerstorfer
+ * Invariante: song und variante sind ungleich null
  * 
+ * @author Peter Pilgerstorfer
  */
 public class SongVariante {
 	private Song song;
@@ -11,7 +12,7 @@ public class SongVariante {
 	/**
 	 * NOTE: Verknuepft eine bestehende Variante mit Song
 	 * 
-	 * Vorbedinung: Parameter duerfen nicht NULL sein
+	 * Vorbedingung: song und variante sind ungleich null
 	 * 
 	 * @param song
 	 * @param variante
@@ -22,21 +23,22 @@ public class SongVariante {
 	}
 
 	/**
-	 * Invariante: keine NULL Werte werden zurueck geliefert
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
 	 */
 	public Song getSong() {
 		return song;
 	}
 
-	/** 
-	 * Invariante: keine NULL Werte werden zurueck geliefert
-	 * 
-	 * @return
+	/**
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
 	 */
 	public Variante getVariante() {
 		return variante;
 	}
 
+	/**
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
+	 */
 	public String toString() {
 		return song + " (" + variante + ")";
 	}

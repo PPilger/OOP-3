@@ -7,12 +7,22 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Invariante: file und bands sind ungleich null. bands enthaelt keine Elemente
+ * gleich null.
+ */
 public class Programm {
 	private File file;
 	private List<Band> bands;
 
 	/**
-	 * NOTE: Erzeugt ein neues Programm und laedt den letzten Zustand aus der Sicherungsdatei.
+	 * NOTE: Erzeugt ein neues Programm und laedt den letzten Zustand aus der
+	 * Sicherungsdatei.
+	 * 
+	 * Nachbedingung: Wenn in die Datei "bands.dat" gelesen werden konnte,
+	 * entspricht der Zustand der Bands dem Zustand zum Zeitpunkt der Sicherung
+	 * der Datei. Wenn in die Datei nicht gelesen werden konnte, wurde eine
+	 * Fehlermeldung ausgegeben.
 	 */
 	public Programm() {
 		this(true);
@@ -21,12 +31,19 @@ public class Programm {
 	/**
 	 * NOTE: Erzeugt ein neues Programm
 	 * 
-	 * @param load true, wenn der letzte Zustand aus der Sicherung geladen werden soll.
+	 * Nachbedingung fuer load == true: Wenn in die Datei "bands.dat" gelesen
+	 * werden konnte, entspricht der Zustand der Bands dem Zustand zum Zeitpunkt
+	 * der Sicherung der Datei. Wenn in die Datei nicht gelesen werden konnte,
+	 * wurde eine Fehlermeldung ausgegeben.
+	 * 
+	 * @param load
+	 *            true, wenn der letzte Zustand aus der Sicherung geladen werden
+	 *            soll.
 	 */
 	public Programm(boolean load) {
 		String filename = "bands.dat";
 		file = new File(filename);
-		
+
 		if (load) {
 			if (file.exists()) {
 				read();
@@ -40,10 +57,18 @@ public class Programm {
 		}
 	}
 
+	/**
+	 * Vorbedingung: band ist ungleich null
+	 * 
+	 * Nachbedingung: band ist in der Bandliste enthalten
+	 */
 	public void addBand(Band band) {
 		bands.add(band);
 	}
 
+	/**
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
+	 */
 	public Band getBand(String name) {
 		for (Band band : bands) {
 			if (band.getName().equalsIgnoreCase(name)) {
@@ -54,7 +79,11 @@ public class Programm {
 	}
 
 	/**
-	 * Speichert den aktuellen Programmzustand.
+	 * NOTE: Speichert den aktuellen Programmzustand.
+	 * 
+	 * Nachbedingung: Wenn in die Datei file geschrieben werden konnte, ist der
+	 * Zustand der Bands gespeichert. Wenn nicht in die Datei geschrieben werden
+	 * konnte, wurde eine Fehlermeldung ausgegeben.
 	 */
 	public void quit() {
 		ObjectOutputStream dos = null;
@@ -75,6 +104,11 @@ public class Programm {
 	}
 
 	@SuppressWarnings("unchecked")
+	/**
+	 * Nachbedingung: Wenn in die Datei file gelesen werden konnte, entspricht der
+	 * Zustand der Bands dem Zustand zum Zeitpunkt der Sicherung der Datei. Wenn in die Datei nicht gelesen werden
+	 * konnte, wurde eine Fehlermeldung ausgegeben.
+	 */
 	private void read() {
 		ObjectInputStream ois = null;
 
