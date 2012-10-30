@@ -17,10 +17,12 @@ public class GuV extends Selection<Posten> {
 	private Band band;
 
 	/**
-	 * NOTE: Erstellt ein neues Objekt GuV für die Klasse Band.
-	 * @param band - Ein Band Objekt für das dieses GuV Objekt erstellt wird.
+	 * NOTE: Erstellt ein neues Objekt GuV fuer die Klasse Band.
+	 * 
+	 * Vorbedingung: band darf nicht NULL sein.
+	 * 
+	 * @param band - Ein Band Objekt fuer das dieses GuV Objekt erstellt wird.
 	 */
-	
 	public GuV(Band band) {
 		this.band = band;
 	}
@@ -29,6 +31,8 @@ public class GuV extends Selection<Posten> {
 	 * NOTE: Erstelle eine neue Termin Sammlung die auf den selben Daten wie
 	 * <code>base</code> arbeitet. Es sind jedoch nur Elemente sichtbar, die von
 	 * den Selektoren selektiert werden.
+	 * 
+	 * Vorbedinung: band darf nicht NULL sein. base darf nicht NULL sein.
 	 * 
 	 * @param base - Das auszugehende GuV Objekt.
 	 * @param selectors - Selektoren, die Suchbedingungen setzen.
@@ -45,7 +49,7 @@ public class GuV extends Selection<Posten> {
 	 * sich direkt auf das Original aus.
 	 * 
 	 * @param selectors - Selektoren, die Suchbedingungen setzen.
-	 * @return - Gibt ein GuV-Objekt mit gesetzten Filtern zurück.
+	 * @return - Gibt ein GuV-Objekt mit gesetzten Filtern zurueck.
 	 */
 	public GuV select(List<Selector<Posten>> selectors) {
 		return new GuV(band, this, selectors);
@@ -55,16 +59,16 @@ public class GuV extends Selection<Posten> {
 	 * NOTE: Berechnet die Summe der Einnahmen aller selektierter Posten. Daber werden
 	 * auch Posten der Termine beruecksichtigt.
 	 * 
+	 * Nachbedingung: 0 <= Rückgabewert <= +unendlich
+	 * 
 	 * @return Summe der Einnahmen der selektierten Posten
-	 * Vorbedingung: Es muss Posten mit Einnahmen geben. Falls nicht wird 0 zurückgegeben.
-	 * Nachbedingung: Immer ein Wert zwischen 0 und positiv unendlich.
 	 */
 	public double getEinnahmen() {
 		double einnahmen = 0;
 
 		/*
 		 * NOTE: Durchiterieren der gespeicherten Posten.
-		 * 		 Falls keine Posten vorhanden sind, wird dieser Block übersprungen.
+		 * 		 Falls keine Posten vorhanden sind, wird dieser Block uebersprungen.
 		 */
 		for (Posten posten : this) {
 			einnahmen += posten.getEinnahmen();
@@ -72,7 +76,7 @@ public class GuV extends Selection<Posten> {
 
 		/*
 		 * NOTE: Durchiterieren aller Termine der Band. 
-		 * 		 Falls keine Termine vorhanden sind, wird dieser Block übersprungen.
+		 * 		 Falls keine Termine vorhanden sind, wird dieser Block uebersprungen.
 		 */
 		for (Termin termin : band.getTermine()) {
 			Posten posten = termin.getPosten();
@@ -88,16 +92,16 @@ public class GuV extends Selection<Posten> {
 	 * NOTE: Berechnet die Summe der Ausgaben aller selektierter Posten. Daber werden
 	 * auch Posten der Termine beruecksichtigt.
 	 * 
+	 * Nachbedingung: -unendlich <= Rückgabewert <= 0
+	 * 
 	 * @return Summe der Ausgaben der selektierten Posten
-	 * Vorbedingung:Es muss Posten mit Ausgaben geben. Falls nicht wird 0 zurückgegeben.
-	 * Nachbedingung: Immer ein Wert zwischen 0 und negativ unendlich.
 	 */
 	public double getAusgaben() {
 		double ausgaben = 0;
 
 		/*
 		 *  NOTE: Durchiterieren der gespeicherten Posten
-		 *  	  Falls keine Posten vorhanden sind, wird dieser Block übersprungen.
+		 *  	  Falls keine Posten vorhanden sind, wird dieser Block uebersprungen.
 		 */
 		for (Posten posten : this) {
 			ausgaben += posten.getAusgaben();
@@ -105,7 +109,7 @@ public class GuV extends Selection<Posten> {
 
 		/*
 		 *  NOTE: Durchiterieren aller Termine der Band
-		 *  	  Falls keien Termine vorhanden sind, wird dieser Block übersprungen.
+		 *  	  Falls keien Termine vorhanden sind, wird dieser Block uebersprungen.
 		 */
 		for (Termin termin : band.getTermine()) {
 			Posten posten = termin.getPosten();
@@ -121,16 +125,16 @@ public class GuV extends Selection<Posten> {
 	 * NOTE: Berechnet den Gesamtgewinn aller selektierter Posten. Daber werden auch
 	 * Posten der Termine beruecksichtigt.
 	 * 
+	 * Nachbedingung: -unendlich <= Rückgabewert <= +unendlich
+	 * 
 	 * @return Gesamtgewinn der selektierten Posten
-	 * Vorbedingung: Es muss Posten mit Einnahmen/Ausgaben gibt. Falls nicht wird 0 zurückgegeben.
-	 * Nachbedingung: Immer ein Wert aus dem gasamten Spektrum der rationalen Zahlen.
 	 */
 	public double getGewinn() {
 		double ausgaben = 0;
 
 		/*
 		 * NOTE: Durchiterieren der gespeicherten Posten
-		 * 		 Falls keien Posten vorhanden sind, wird dieser Block übersprungen.
+		 * 		 Falls keien Posten vorhanden sind, wird dieser Block uebersprungen.
 		 */
 		for (Posten posten : this) {
 			ausgaben += posten.getEinnahmen() - posten.getAusgaben();
@@ -138,7 +142,7 @@ public class GuV extends Selection<Posten> {
 
 		/*
 		 * NOTE: Durchiterieren aller Termine der Band
-		 * 		 Falls keine Termine vorhanden sind, wird dieser Block übersprungen.
+		 * 		 Falls keine Termine vorhanden sind, wird dieser Block uebersprungen.
 		 */
 		for (Termin termin : band.getTermine()) {
 			Posten posten = termin.getPosten();

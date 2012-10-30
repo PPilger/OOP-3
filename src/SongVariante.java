@@ -10,9 +10,11 @@ public class SongVariante {
 
 	/**
 	 * NOTE: Verknuepft eine bestehende Variante mit Song
+	 * 
+	 * Vorbedinung: Parameter duerfen nicht NULL sein
+	 * 
 	 * @param song
 	 * @param variante
-	 * Vorbedinung: Parameter duerfen nicht NULL sein
 	 */
 	public SongVariante(Song song, Variante variante) {
 		this.song = song;
@@ -27,8 +29,9 @@ public class SongVariante {
 	}
 
 	/** 
-	 * @return
 	 * Invariante: keine NULL Werte werden zurueck geliefert
+	 * 
+	 * @return
 	 */
 	public Variante getVariante() {
 		return variante;

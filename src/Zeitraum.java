@@ -8,8 +8,9 @@ import java.util.List;
 /**
  * Ermoeglicht die ueberpruefung ob sich Zeitraeume ueberschneiden.
  * 
- * @author Peter Pilgerstorfer
  * Invariante: nur getFirst() und getLast() koennen NULL zurueck geben
+ * 
+ * @author Peter Pilgerstorfer
  */
 public class Zeitraum implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -18,27 +19,27 @@ public class Zeitraum implements Serializable {
 	List<Date> zeitpunkte = new ArrayList<Date>();
 
 	/**
+	 * Vorbedingung: Parameter duerfen nicht NULL sein
 	 * 
 	 * @param zeitpunkte
-	 * Vorbedingung: Parameter duerfen nicht NULL sein
 	 */
 	public Zeitraum(Date... zeitpunkte) {
 		this.zeitpunkte.addAll(Arrays.asList(zeitpunkte));
 	}
 
 	/**
+	 * Vorbedingung: Parameter duerfen nicht NULL sein
 	 * 
 	 * @param orig
-	 * Vorbedingung: Parameter duerfen nicht NULL sein
 	 */
 	public Zeitraum(Zeitraum orig) {
 		this.zeitpunkte.addAll(orig.zeitpunkte);
 	}
 
 	/**
+	 * Nachbedinung: kann NULL zurueck geben
 	 * 
 	 * @return Element 0
-	 * Nachbedinung: kann NULL zurueck geben
 	 */
 	public Date getFirst() {
 		if (zeitpunkte.isEmpty()) {
@@ -48,9 +49,9 @@ public class Zeitraum implements Serializable {
 	}
 
 	/**
+	 * Nachbedinung: kann NULL zurueck geben
 	 * 
 	 * @return letztes Element (size - 1) 
-	 * Nachbedinung: kann NULL zurueck geben
 	 */
 	public Date getLast() {
 		if (zeitpunkte.isEmpty()) {
@@ -60,10 +61,10 @@ public class Zeitraum implements Serializable {
 	}
 
 	/**
+	 * Vorbedingung: Parameter darf nicht NULL sein
 	 * 
 	 * @param zeitpunkt
 	 * @return
-	 * Vorbedingung: Parameter darf nicht NULL sein
 	 */
 	public boolean inZeitraum(Date zeitpunkt) {
 		if (zeitpunkte.isEmpty()) {
@@ -90,10 +91,10 @@ public class Zeitraum implements Serializable {
 	}
 
 	/**
+	 * Vorbedingung: Parameter darf nicht NULL sein
 	 * 
 	 * @param other
 	 * @return
-	 * Vorbedingung: Parameter darf nicht NULL sein
 	 */
 	public boolean enthaelt(Zeitraum other) {
 		if (zeitpunkte.isEmpty()) {
@@ -128,10 +129,10 @@ public class Zeitraum implements Serializable {
 	}
 
 	/**
+	 * Vorbedingung: Parameter darf nicht NULL sein
 	 * 
 	 * @param format
 	 * @return
-	 * Vorbedingung: Parameter darf nicht NULL sein
 	 */
 	public String toString(DateFormat format) {
 		StringBuilder builder = new StringBuilder();
@@ -178,22 +179,22 @@ public class Zeitraum implements Serializable {
 	}
 
 	/**
+	 * Vorbedingung: Parameter duerfen nicht NULL sein
 	 * 
 	 * @param t
 	 * @param von
 	 * @param bis
 	 * @return
-	 * Vorbedingung: Parameter duerfen nicht NULL sein
 	 */
 	private static boolean inZeitraum(Date t, Date von, Date bis) {
 		return !bis.before(t) && !von.after(t);
 	}
 
 	/**
+	 * Vorbedingung: Parameter darf nicht NULL sein
 	 * 
 	 * @param von
 	 * @return
-	 * Vorbedingung: Parameter darf nicht NULL sein
 	 */
 	private boolean enthaelt(Date von) {
 		if (zeitpunkte.isEmpty()) {
@@ -211,7 +212,9 @@ public class Zeitraum implements Serializable {
 		return !v.after(von);
 	}
 
-	/**Parameter duerfen nicht NULL sein
+	/**
+	 * NOTE: Parameter duerfen nicht NULL sein
+	 * 
 	 * Vorbedingung: der Zeitpunkt <code>von</code> liegt vor <code>bis</code>! Parameter duerfen nicht NULL sein.
 	 */
 	private boolean enthaelt(Date von, Date bis) {

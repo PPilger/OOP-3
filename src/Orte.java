@@ -7,10 +7,10 @@ public class Orte extends Selection<Ort> {
 	}
 
 	/**
+	 * Vorbedingung: Parameter darf nicht NULL sein, oder Elemente die NULL sind enthalten
 	 * 
 	 * @param base
 	 * @param selectors
-	 * Vorbedingung: Parameter darf nicht NULL sein, oder Elemente die NULL sind enthalten
 	 */
 	private Orte(Orte base, List<Selector<Ort>> selectors) {
 		super(base, selectors);
@@ -22,9 +22,10 @@ public class Orte extends Selection<Ort> {
 	 * werden. Aenderungen in der zurueckgegebenen Selektion wirken sich direkt
 	 * auf das Original aus.
 	 * 
+	 * Vorbedingung: Parameter darf nicht NULL sein, oder Elemente die NULL sind enthalten
+	 * 
 	 * @param selectors
 	 * @return
-	 * Vorbedingung: Parameter darf nicht NULL sein, oder Elemente die NULL sind enthalten
 	 */
 	public Orte select(List<Selector<Ort>> selectors) {
 		return new Orte(this, selectors);

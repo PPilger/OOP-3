@@ -1,7 +1,7 @@
 import java.util.List;
 
 /**
- * NOOTE: Eine Sammlung von Mitgliedern.
+ * NOTE: Eine Sammlung von Mitgliedern.
  * 
  * @author Peter Pilgerstorfer
  */
@@ -16,9 +16,10 @@ public class Mitglieder extends Selection<Mitglied> {
 	 * <code>base</code> arbeitet. Es sind jedoch nur Elemente sichtbar, die von
 	 * den Selektoren selektiert werden.
 	 * 
+	 * Vorbedingung: Parameter durfen nicht NULL sein, Listen keine NULL Elemente enthalten
+	 * 
 	 * @param base
 	 * @param selectors
-	 * Vorbedingung: Parameter durfen nicht NULL sein, Listen keine NULL Elemente enthalten
 	 */
 	private Mitglieder(Mitglieder base, List<Selector<Mitglied>> selectors) {
 		super(base, selectors);
@@ -30,9 +31,10 @@ public class Mitglieder extends Selection<Mitglied> {
 	 * selektiert werden. Aenderungen in der zurueckgegebenen Selektion wirken
 	 * sich direkt auf das Original aus.
 	 * 
+	 * Vorbedingung: Parameter durfen nicht NULL sein, Listen keine NULL Elemente enthalten
+	 * 
 	 * @param selectors
 	 * @return
-	 * Vorbedingung: Parameter durfen nicht NULL sein, Listen keine NULL Elemente enthalten
 	 */
 	public Mitglieder select(List<Selector<Mitglied>> selectors) {
 		return new Mitglieder(this, selectors);

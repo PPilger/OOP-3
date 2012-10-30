@@ -5,9 +5,11 @@ import java.util.Queue;
 
 /**
  * NOTE: Speichert Personenspezifische Daten, und kann Nachrichten, sowie Terminvorschlaege empfangen
- * @author Christian Kletzander
+ * 
  * Invariante: gibt keine NULL Werte zurueck. Stellt nicht sicher, dass Elemente in einer der Queues eingefuegt werden!
  * Vorbedingung: Queues duerfen keine NULL Elemente uebergeben werden
+ * 
+ * @author Christian Kletzander
  */
 public class Mitglied implements Serializable {
 
@@ -15,7 +17,7 @@ public class Mitglied implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	// Variablendefinition
+	//NOTE: Variablendefinition
 	private String name;
 	private String telNr;
 	private String instrument;
@@ -25,14 +27,14 @@ public class Mitglied implements Serializable {
 	private boolean ersatzmitglied;
 
 	/**
+	 * Vorbedingung: Parameter durfen nicht NULL sein.
+	 * Endbedingung: Queues sind leer
 	 * 
 	 * @param name
 	 * @param telNr
 	 * @param instrument
 	 * @param zeitraum
 	 * @param ersatzmitglied
-	 * Vorbedingung: Parameter durfen nicht NULL sein.
-	 * Endbedingung: Queues sind leer
 	 */
 	public Mitglied(String name, String telNr, String instrument,
 			Zeitraum zeitraum, boolean ersatzmitglied) {
@@ -50,18 +52,18 @@ public class Mitglied implements Serializable {
 	}
 
 	/**
+	 * Nachbedingung: es wird nicht sichergestellt, dass Nachricht tatsaechlich in Queue ist.
 	 * 
 	 * @param nachricht
-	 * Endbedingung: es wird nicht sichergestellt, dass Nachricht tatsaechlich in Queue ist.
 	 */
 	public void sende(String nachricht) {
 		this.nachrichten.offer(nachricht);
 	}
 
 	/**
+	 * Nachbedingung: es wird nicht sichergestellt, dass Nachricht tatsaechlich in Queue ist.
 	 * 
 	 * @param terminvorschlag
-	 * Endbedingung: es wird nicht sichergestellt, dass Nachricht tatsaechlich in Queue ist.
 	 */
 	public void sende(Terminvorschlag terminvorschlag) {
 		this.terminvorschlaege.offer(terminvorschlag);
@@ -96,8 +98,9 @@ public class Mitglied implements Serializable {
 	 * NOTE: Gibt entweder Mitglieder die Ersatzmitglieder sind aus, oder jene die
 	 * keine sind.
 	 * 
-	 * @author VHD
 	 * Vorbedingung: Parameter durfen nicht NULL sein
+	 * 
+	 * @author VHD
 	 */
 	public static class TypSelector implements Selector<Mitglied> {
 		private boolean isE;
@@ -121,9 +124,9 @@ public class Mitglied implements Serializable {
 	}
 
 	/**
+	 * Vorbedingung: Parameter durfen nicht NULL sein
 	 * 
 	 * @author Koegler Alexander
-	 * Vorbedingung: Parameter durfen nicht NULL sein
 	 */
 	public static class ZeitraumSelektor implements Selector<Mitglied> {
 		private Date zeitpunkt;
@@ -140,9 +143,9 @@ public class Mitglied implements Serializable {
 	}
 
 	/**
+	 * Vorbedingung: Parameter durfen nicht NULL sein
 	 * 
 	 * @author Koegler Alexander
-	 * Vorbedingung: Parameter durfen nicht NULL sein
 	 */
 	public static class InstrumentSelektor implements Selector<Mitglied> {
 		private String instrument;
@@ -158,9 +161,9 @@ public class Mitglied implements Serializable {
 	}
 
 	/**
+	 * Vorbedingung: Parameter durfen nicht NULL sein
 	 * 
 	 * @author Koegler Alexander
-	 * Vorbedingung: Parameter durfen nicht NULL sein
 	 */
 	public static class NameSelektor implements Selector<Mitglied> {
 		private String[] namen;

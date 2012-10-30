@@ -28,7 +28,10 @@ public class Termin implements Serializable {
 	}
 
 	/**
-	 * Legt neuen Termin an
+	 * NOTE: Legt neuen Termin an
+	 * 
+	 * Vorbedingung: Parameter duerfen nicht NULL sein, private variable orig muss NULL bleiben. Liste darf keine NULL Werte enthalten, oder doppelte eintraege. Double Werte muessen das positives Vorzeichen haben.
+	 * 
 	 * @param typus
 	 * @param ort
 	 * @param von
@@ -36,8 +39,6 @@ public class Termin implements Serializable {
 	 * @param ausgaben muss >= 0 sein
 	 * @param einnahmen muss >= 0 sein
 	 * @param teilnehmer
-	 * 
-	 * Vorbedingung: Parameter duerfen nicht NULL sein, private variable orig muss NULL bleiben. Liste darf keine NULL Werte enthalten, oder doppelte eintraege. Double Werte muessen das positives Vorzeichen haben.
 	 */
 	public Termin(Typ typus, Ort ort, Date von, Date bis, double ausgaben,
 			double einnahmen, List<Mitglied> teilnehmer) {
@@ -58,24 +59,26 @@ public class Termin implements Serializable {
 	}
 
 	/**
+	 * Nachbedingung: liefert Zahl >= 0 zurueck
 	 * 
 	 * @return
-	 * Nachbedingung: liefert Zahl >= 0 zurueck
 	 */
 	public double getAusgaben() {
 		return posten.getAusgaben();
 	}
 
 	/**
+	 * Nachbedingung: liefert Zahl >= 0 zurueck
 	 * 
 	 * @return
-	 * Nachbedingung: liefert Zahl >= 0 zurueck
 	 */
 	public double getEinnahmen() {
 		return posten.getEinnahmen();
 	}
 
-	/**Vorbedingung: Liste darf keine NULL Werte enthalten, oder doppelte eintraege.
+	/**
+	 * Vorbedingung: Liste darf keine NULL Werte enthalten, oder doppelte eintraege.
+	 * 
 	 * @return Teilnehmerliste. Diese darf nicht geaendert werden!
 	 */
 	public List<Mitglied> getTeilnehmer() {
@@ -83,7 +86,7 @@ public class Termin implements Serializable {
 	}
 
 	/**
-	 * Legt eine Kopie des Termins auf den Undo-Stack.
+	 * NOTE: Legt eine Kopie des Termins auf den Undo-Stack.
 	 */
 	private void prepareUpdate() {
 		Termin other = new Termin();
@@ -125,8 +128,10 @@ public class Termin implements Serializable {
 
 	/**
 	 * NOTE: Benachrichtigt alle Teilnehmer ueber die gemachte Aenderung.
-	 * @param aenderung
+	 * 
 	 * Nachbedinung: stellt nicht sicher, dass Teilnehmer benachrichtigt werden
+	 * 
+	 * @param aenderung
 	 */
 	private void meldeUpdate(String aenderung) {
 		for (Mitglied t : teilnehmer) {
@@ -137,10 +142,11 @@ public class Termin implements Serializable {
 	}
 
 	/**
-	 * @author Christian Kletzander
-	 * @param ort
 	 * Vorbedingung: Parameter zum ueberspeichern des Ortes darf nicht NULL sein
 	 * Nachbedinung: stellt nicht sicher, dass Teilnehmer benachrichtigt werden
+	 * 
+	 * @author Christian Kletzander
+	 * @param ort
 	 */
 	public void setOrt(Ort ort) {
 		this.prepareUpdate();
@@ -149,10 +155,11 @@ public class Termin implements Serializable {
 	}
 
 	/**
+	 * Vorbedingung: Parameter zum ueberspeichern des Zeitraums duerfen nicht NULL sein
+	 * Nachbedinung: stellt nicht sicher, dass Teilnehmer benachrichtigt werden
+	 * 
 	 * @author Christian Kletzander
 	 * @param zeitraum
-	 *  Vorbedingung: Parameter zum ueberspeichern des Zeitraums duerfen nicht NULL sein
-	 *  Nachbedinung: stellt nicht sicher, dass Teilnehmer benachrichtigt werden
 	 */
 	public void setZeitraum(Date von, Date bis) {
 		this.prepareUpdate();
@@ -161,10 +168,10 @@ public class Termin implements Serializable {
 	}
 
 	/**
-	 * 
-	 * @param kosten
 	 * Vorbedingung: Parameter muessen >= 0 sein
 	 * Nachbedinung: stellt nicht sicher, dass Teilnehmer benachrichtigt werden
+	 * 
+	 * @param kosten
 	 */
 	public void setAusgaben(double kosten) {
 		this.prepareUpdate();
@@ -175,10 +182,10 @@ public class Termin implements Serializable {
 	}
 
 	/**
-	 * 
-	 * @param umsatz
 	 * Vorbedingung: Parameter muessen >= 0 sein
 	 * Nachbedinung: stellt nicht sicher, dass Teilnehmer benachrichtigt werden
+	 * 
+	 * @param umsatz
 	 */
 	public void setEinnahmen(double umsatz) {
 		this.prepareUpdate();
@@ -204,11 +211,12 @@ public class Termin implements Serializable {
 	}
 
 	/**
-	 * Selektiert jene Termine an denen ein gegebenes Mitglied auch beteiligt
+	 * NOTE: Selektiert jene Termine an denen ein gegebenes Mitglied auch beteiligt
 	 * ist
 	 * 
-	 * @author Koegler Alexander
 	 * Vorbedingung: Parameter duerfen nicht NULL sein
+	 * 
+	 * @author Koegler Alexander
 	 */
 	public static class TeilnehmerSelektor implements Selector<Termin> {
 		private Mitglied m;
@@ -225,9 +233,11 @@ public class Termin implements Serializable {
 	}
 
 	/**
-	 * Selektiert Termine dessen Zeitraum den angegebenen ueberschneidet
-	 * @author Koegler Alexander
+	 * NOTE: Selektiert Termine dessen Zeitraum den angegebenen ueberschneidet
+	 * 
 	 * Vorbedingung: Parameter duerfen nicht NULL sein
+	 * 
+	 * @author Koegler Alexander
 	 */
 	public static class ZeitraumSelektor implements Selector<Termin> {
 
@@ -247,9 +257,11 @@ public class Termin implements Serializable {
 	}
 
 	/**
-	 * Selektiert Termine aus, dessen Typ mit dem angegebenen uebereinstimmt
-	 * @author Koegler Alexander
+	 * NOTE: Selektiert Termine aus, dessen Typ mit dem angegebenen uebereinstimmt
+	 * 
 	 * Vorbedingung: Parameter duerfen nicht NULL sein
+	 * 
+	 * @author Koegler Alexander
 	 */
 	public static class TypSelektor implements Selector<Termin> {
 		private Typ typus;

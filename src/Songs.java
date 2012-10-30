@@ -20,9 +20,10 @@ public class Songs extends Selection<Song> {
 	 * <code>base</code> arbeitet. Es sind jedoch nur Elemente sichtbar, die von
 	 * den Selektoren selektiert werden.
 	 * 
+	 * Vorbedingung: Liste darf nicht NULL sein, oder Elemente enthalten die NULL sind
+	 * 
 	 * @param base
 	 * @param selectors
-	 * Vorbedingung: Liste darf nicht NULL sein, oder Elemente enthalten die NULL sind
 	 */
 	private Songs(Songs base, List<Selector<Song>> selectors) {
 		super(base, selectors);
@@ -35,6 +36,7 @@ public class Songs extends Selection<Song> {
 	 * auf das Original aus.
 	 * 
 	 * Vorbedingung: Parameter darf nicht NULL sein 
+	 * 
 	 * @param selectors
 	 * @return
 	 */
@@ -43,9 +45,9 @@ public class Songs extends Selection<Song> {
 	}
 
 	/**
+	 * Nachbedingung: liefert instanzierte befuellte Liste zurueck
 	 * 
 	 * @return
-	 * Nachbedingung: liefert instanzierte befuellte Liste zurueck
 	 */
 	public List<SongVariante> getSongVarianten() {
 		return getSongVarianten(new ArrayList<Selector<Variante>>());
@@ -59,15 +61,17 @@ public class Songs extends Selection<Song> {
 	 * 
 	 * Vorbedinung: Parameter darf nicht NULL sein
 	 * Nachbedingung: Es existiert eine Liste mit selektierten SongVarianten
+	 * 
 	 * @param selectors
 	 * @return Eine selektierte Liste mit SongVariante-Objekte
 	 */
 	
-  /* * 
-	 * @param selectors
-	 * @return
-	 * Nachbedingung: liefert befuellte instanzierte Liste zurueck
-	 */
+   /** 
+    * Nachbedingung: liefert befuellte instanzierte Liste zurueck
+    * 
+    * @param selectors
+    * @return
+    */
 	public List<SongVariante> getSongVarianten(
 			List<Selector<Variante>> selectors) {
 		List<SongVariante> songVarianten = new ArrayList<SongVariante>();
@@ -83,6 +87,7 @@ public class Songs extends Selection<Song> {
 
 	/**
 	 * Vorbedingung: Parameter darf nicht NULL sein, oder Elemente die NULL sind enthalten
+	 * 
 	 * @param variante
 	 * @return true, wenn alle Selektoren die Variante selektieren, false
 	 *         anderenfalls.

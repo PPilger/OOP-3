@@ -3,8 +3,9 @@ import java.io.Serializable;
 /**
  * Repraesentiert eine Variante eines Songs.
  * 
+ * Invariante: keine NULL Werte werden zurueck gegeben
+ * 
  * @author Peter Pilgerstorfer
- *  Invariante: keine NULL Werte werden zurueck gegeben
  */
 public class Variante implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -13,10 +14,10 @@ public class Variante implements Serializable {
 	private int laenge;
 
 	/**
+	 * Vorbedingung: Parameter duerfen nicht NULL sein
 	 * 
 	 * @param bezeichnung
 	 * @param laenge sollte >= 0 sein
-	 * Vorbedingung: Parameter duerfen nicht NULL sein
 	 */
 	public Variante(String bezeichnung, int laenge) {
 		this.bezeichnung = bezeichnung;
@@ -29,10 +30,11 @@ public class Variante implements Serializable {
 	}
 
 	/**
+	 * NOTE: Selektiert Elemente mit gleicher Bezeichnung, ignoreCase
+	 * 
+	 * Vorbedingung: Parameter duerfen nicht NULL sein
 	 * 
 	 * @author VHD
-	 * Selektiert Elemente mit gleicher Bezeichnung, ignoreCase
-	 * Vorbedingung: Parameter duerfen nicht NULL sein
 	 */
 	public static class BezeichnungSelektor implements Selector<Variante> {
 
