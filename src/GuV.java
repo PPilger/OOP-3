@@ -16,6 +16,8 @@ public class GuV extends Selection<Posten> {
 	 * 
 	 * Vorbedingung: band ist ungleich NULL
 	 * 
+	 * Nachbedingung: das neue GuV Objekt enthaelt keine Posten
+	 * 
 	 * @param band
 	 *            - Ein Band Objekt fuer das dieses GuV Objekt erstellt wird.
 	 */
@@ -30,6 +32,10 @@ public class GuV extends Selection<Posten> {
 	 * 
 	 * Vorbedingung: band, base und selectors sind ungleich NULL, selectors
 	 * enthaelt keine Elemente gleich NULL
+	 * 
+	 * Nachbedinung: das neue GuV Objekt arbeitet auf den selben Elementen wie
+	 * base. Es sind jedoch nur Elemente sichtbar, die mit den selectors
+	 * selektiert werden.
 	 * 
 	 * @param base
 	 *            Das auszugehende GuV Objekt.
@@ -49,6 +55,10 @@ public class GuV extends Selection<Posten> {
 	 * 
 	 * Vorbedingung: selectors ist ungleich NULL und enthaelt keine Elemente
 	 * gleich NULL
+	 * 
+	 * Nachbedinung: das zurueckgegebene GuV Objekt arbeitet auf den selben
+	 * Elementen wie this. Es sind jedoch nur Elemente sichtbar, die mit den
+	 * selectors selektiert werden.
 	 * 
 	 * @param selectors
 	 *            - Selektoren, die Suchbedingungen setzen.
