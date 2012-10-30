@@ -43,6 +43,15 @@ import java.util.Queue;
  * Klassen, benoetigt aber nur deren Grundfunktionalitaet (Erzeugen,
  * Selektieren).
  * 
+ * 
+ * GOOD: In den Klassen waren keine Typüberprüfungen notwendig, somit musste nie ein instanceof verwendet werden.
+ * 
+ * GOOD: In den Klassen findet man keine get-Methoden die das Objekt wiederrum nicht öffnen und 
+ * 	     den Zugriff auf alle privaten Variablen ermöglichen. Somit kann man nur auf die Informationen zugreifen,
+ *       welche auch vom Objekt zur Verfügung gestellt werden.
+ * 		
+ * 
+ * 
  * @author Peter Pilgerstorfer
  * 
  */

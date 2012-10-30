@@ -1,7 +1,8 @@
 /**
  * NOTE: wird benoetigt um Objekte vom Typ T nach kriterien zu filtern
  * 
- * GOOD: Vermeidet Codewiederholung, dynamisches Binden
+ * GOOD: Der Selektor ist auf verschiedenste Objekte anwendbar aufgrund der gegebenen Generiztität.
+ * 		 Dadurch wird Codewiederholung vermieden und der Code Zentral abgerufen.
  * 
  * @author VHD
  * @param <T>
