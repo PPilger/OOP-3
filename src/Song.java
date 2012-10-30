@@ -6,6 +6,15 @@ import java.util.List;
  * Invariante: name, zeitraum und varianten sind ungleich null. varianten
  * enthaelt keine Elemente gleich null.
  * 
+ * GOOD: Der Klassen-Zusammenhalt dieser Klasse ist niedrig. Es gibt wenige Abhängigkeiten
+ * 		 die aufeinander aufbauen. Nur der Selektor benötigt das Attribut name um einen 
+ * 		 Vergleich darzustellen. Somit würde das weglassen dieses Attributs ein nicht finden 
+ * 		 des Selektors bedeuten.
+ * 
+ * GOOD: Die Objekt-Kopplung ist schwach. Ein Song-Objekt interagiert mit wenigen anderen Objekten. 
+ * 		 Somit ist gewährleistet, dass beim Löschen eines Song-Objekts nicht mit negativen Einflüssen 
+ * 		 zu rechnen ist.
+ * 
  * @author Christian Kletzander
  */
 public class Song implements Serializable {
