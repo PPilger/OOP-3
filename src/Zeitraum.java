@@ -8,6 +8,9 @@ import java.util.List;
 /**
  * Ermoeglicht die ueberpruefung ob sich Zeitraeume ueberschneiden.
  * 
+ * GOOD: Schwache Objektkopplung. Es wird auf keine anderen Klassen des
+ * Programmes zugegriffen.
+ * 
  * Invariante: zeitpunkte ist ungleich NULL und enthaelt keine Elemente gleich
  * NULL
  * 
@@ -197,11 +200,6 @@ public class Zeitraum implements Serializable {
 	 * Vorbedingung: t, von und bis sind ungleich NULL
 	 * 
 	 * Vorbedingung: der Zeitpunkt von liegt vor dem Zeitpunkt bis
-	 * 
-	 * @param t
-	 * @param von
-	 * @param bis
-	 * @return
 	 */
 	private static boolean inZeitraum(Date t, Date von, Date bis) {
 		return !bis.before(t) && !von.after(t);
@@ -209,9 +207,6 @@ public class Zeitraum implements Serializable {
 
 	/**
 	 * Vorbedingung: von ist ungleich NULL
-	 * 
-	 * @param von
-	 * @return
 	 */
 	private boolean enthaelt(Date von) {
 		if (zeitpunkte.isEmpty()) {
