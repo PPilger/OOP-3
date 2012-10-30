@@ -65,7 +65,9 @@ public class Band implements Serializable {
 
 	/**
 	 * Vorbedingung: selectors ist ungleich NULL und enthaelt keine Elemente
-	 * gleich NULL Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 * gleich NULL
+	 * 
+	 * Nachbedingung: der Rueckgabewert ist ungleich NULL
 	 */
 	public Songs getRepertoire(List<Selector<Song>> selectors) {
 		return this.repertoire.select(selectors);
@@ -79,8 +81,9 @@ public class Band implements Serializable {
 	}
 
 	/**
-	 * Vorbedingung: selector ist ungleich NULL Nachbedingung: der Rueckgabewert
-	 * ist ungleich NULL
+	 * Vorbedingung: selector ist ungleich NULL
+	 * 
+	 * Nachbedingung: der Rueckgabewert ist ungleich NULL
 	 */
 	public Termine getTermine(Selector<Termin> selector) {
 		List<Selector<Termin>> list = new ArrayList<Selector<Termin>>();
@@ -90,7 +93,9 @@ public class Band implements Serializable {
 
 	/**
 	 * Vorbedingung: selectors ist ungleich NULL und enthaelt keine Elemente
-	 * gleich NULL Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 * gleich NULL
+	 * 
+	 * Nachbedingung: der Rueckgabewert ist ungleich NULL
 	 */
 	public Termine getTermine(List<Selector<Termin>> selectors) {
 		return this.termine.select(selectors);
@@ -104,8 +109,9 @@ public class Band implements Serializable {
 	}
 
 	/**
-	 * Vorbedingung: selector ist ungleich NULL Nachbedingung: der Rueckgabewert
-	 * ist ungleich NULL
+	 * Vorbedingung: selector ist ungleich NULL
+	 * 
+	 * Nachbedingung: der Rueckgabewert ist ungleich NULL
 	 */
 	public Mitglieder getMitglieder(Selector<Mitglied> selector) {
 		List<Selector<Mitglied>> list = new ArrayList<Selector<Mitglied>>();
@@ -115,7 +121,9 @@ public class Band implements Serializable {
 
 	/**
 	 * Vorbedingung: selectors ist ungleich NULL und enthaelt keine Elemente
-	 * gleich NULL Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 * gleich NULL
+	 * 
+	 * Nachbedingung: der Rueckgabewert ist ungleich NULL
 	 */
 	public Mitglieder getMitglieder(List<Selector<Mitglied>> selectors) {
 		return this.mitglieder.select(selectors);

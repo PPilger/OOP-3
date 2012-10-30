@@ -8,18 +8,26 @@ import java.util.List;
 /**
  * Ermoeglicht die ueberpruefung ob sich Zeitraeume ueberschneiden.
  * 
- * Invariante: nur getFirst() und getLast() koennen NULL zurueck geben
+ * Invariante: zeitpunkte ist ungleich NULL und enthaelt keine Elemente gleich
+ * NULL
+ * 
+ * Invariante: zeitpunkte ist aufsteigend sortiert
  * 
  * @author Peter Pilgerstorfer
  */
 public class Zeitraum implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	//Darf niemals NULL werden, oder Elemente enthalten die NULL sind
 	List<Date> zeitpunkte = new ArrayList<Date>();
 
 	/**
-	 * Vorbedingung: Parameter duerfen nicht NULL sein
+	 * Vorbedingung: zeitpunkte enthaelt keine Elemente gleich NULL
+	 * Vorbedingung: zeitpunkte ist aufsteigend sortiert
+	 * 
+	 * Nachbedingung: der neue Zeitraum ist aus den Intervallen der Zeitpunkte
+	 * zusammengesetzt. Zeitpunkte mit geraden Index (0,2,...) sind
+	 * Intervallanfaenge, Zeitpunkte mit ungeradem Index (1,3,...) sind
+	 * Intervallenden.
 	 * 
 	 * @param zeitpunkte
 	 */
@@ -28,7 +36,9 @@ public class Zeitraum implements Serializable {
 	}
 
 	/**
-	 * Vorbedingung: Parameter duerfen nicht NULL sein
+	 * Vorbedingung: orig ist ungleich NULL
+	 * 
+	 * Nachbedingung: der neue Zeitraum ist eine Kopie von orig
 	 * 
 	 * @param orig
 	 */
@@ -36,11 +46,6 @@ public class Zeitraum implements Serializable {
 		this.zeitpunkte.addAll(orig.zeitpunkte);
 	}
 
-	/**
-	 * Nachbedinung: kann NULL zurueck geben
-	 * 
-	 * @return Element 0
-	 */
 	public Date getFirst() {
 		if (zeitpunkte.isEmpty()) {
 			return null;
@@ -48,11 +53,6 @@ public class Zeitraum implements Serializable {
 		return zeitpunkte.get(0);
 	}
 
-	/**
-	 * Nachbedinung: kann NULL zurueck geben
-	 * 
-	 * @return letztes Element (size - 1) 
-	 */
 	public Date getLast() {
 		if (zeitpunkte.isEmpty()) {
 			return null;
@@ -61,7 +61,7 @@ public class Zeitraum implements Serializable {
 	}
 
 	/**
-	 * Vorbedingung: Parameter darf nicht NULL sein
+	 * Vorbedingung: zeitpunkt ist ungleich NULL
 	 * 
 	 * @param zeitpunkt
 	 * @return
@@ -71,7 +71,7 @@ public class Zeitraum implements Serializable {
 			return true;
 		}
 
-		// Ist der Zeitpunkt in einem Intervall enthalten?
+		// NOTE: Ist der Zeitpunkt in einem Intervall enthalten?
 		for (int i = 0; i < zeitpunkte.size() - 1; i += 2) {
 			Date von = zeitpunkte.get(i);
 			Date bis = zeitpunkte.get(i + 1);
@@ -81,29 +81,34 @@ public class Zeitraum implements Serializable {
 			}
 		}
 
-		// Ist das Zeitintervall am Ende offen?
+		// Zusicherung: keines der geschlossenen Intervalle beinhaltet zeitpunkt
+
+		// NOTE: Ist das Zeitintervall am Ende offen?
 		if ((zeitpunkte.size() & 0x1) == 1) {
 			Date von = zeitpunkte.get(zeitpunkte.size() - 1);
 			return !von.after(zeitpunkt);
 		}
 
+		// Zusicherung: kein Intervall beinhaltet zeitpunkt
+
 		return false;
 	}
 
 	/**
-	 * Vorbedingung: Parameter darf nicht NULL sein
+	 * Vorbedingung: other ist ungleich NULL
 	 * 
 	 * @param other
 	 * @return
 	 */
 	public boolean enthaelt(Zeitraum other) {
 		if (zeitpunkte.isEmpty()) {
-			return true; // alles ist enthalten
+			return true; // NOTE: alles ist enthalten
 		} else if (other.zeitpunkte.isEmpty()) {
-			return false; // etwas beschraenktes kann nicht alles enthalten
+			return false; // NOTE:etwas beschraenktes kann nicht alles enthalten
 		}
 
-		// Es muessen alle Intervalle von other in einem Intervall von this
+		// NOTE: Es muessen alle Intervalle von other in einem Intervall von
+		// this
 		// enthalten sein
 		for (int i = 0; i < other.zeitpunkte.size() - 1; i += 2) {
 			Date von = other.zeitpunkte.get(i);
@@ -114,22 +119,32 @@ public class Zeitraum implements Serializable {
 			}
 		}
 
-		// Ueberpruefung des offenen Endintervalls
+		// Zusicherung: alle geschlossenen Intervalle von other sind im Zeitraum
+		// enthalten
+
+		// NOTE: Ueberpruefung des offenen Endintervalls
 		if ((other.zeitpunkte.size() & 0x1) == 1) {
 			Date von = other.zeitpunkte.get(other.zeitpunkte.size() - 1);
 			return enthaelt(von);
 		}
 
+		// Zusicherung: other ist im Zeitraum enthalten
+
 		return true;
 	}
 
 	@Override
+	/**
+	 * Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 */
 	public String toString() {
 		return toString(DateFormat.getDateInstance());
 	}
 
 	/**
-	 * Vorbedingung: Parameter darf nicht NULL sein
+	 * Vorbedingung: format ist ungleich NULL
+	 * 
+	 * Nachbedingung: der Rueckgabewert ist ungleich NULL
 	 * 
 	 * @param format
 	 * @return
@@ -139,7 +154,7 @@ public class Zeitraum implements Serializable {
 
 		builder.append('[');
 
-		// Ausgabe des ersten Intervalls
+		// NOTE: Ausgabe des ersten Intervalls
 		if (0 < zeitpunkte.size() - 1) {
 			Date von = zeitpunkte.get(0);
 			Date bis = zeitpunkte.get(1);
@@ -149,7 +164,7 @@ public class Zeitraum implements Serializable {
 			builder.append(format.format(bis));
 		}
 
-		// Ausgabe der folgenden Intervalle
+		// NOTE: Ausgabe der folgenden Intervalle
 		for (int i = 2; i < zeitpunkte.size() - 1; i += 2) {
 			Date von = zeitpunkte.get(i);
 			Date bis = zeitpunkte.get(i + 1);
@@ -160,11 +175,11 @@ public class Zeitraum implements Serializable {
 			builder.append(format.format(bis));
 		}
 
-		// Ausgabe des offenen Endintervalls
+		// NOTE: Ausgabe des offenen Endintervalls
 		if ((zeitpunkte.size() & 0x1) == 1) {
 			Date von = zeitpunkte.get(zeitpunkte.size() - 1);
 
-			// ", " nur anhaengen, wenn es Intervalle davor gibt.
+			// NOTE: ", " nur anhaengen, wenn es Intervalle davor gibt.
 			if (zeitpunkte.size() > 1) {
 				builder.append(", ");
 			}
@@ -179,7 +194,9 @@ public class Zeitraum implements Serializable {
 	}
 
 	/**
-	 * Vorbedingung: Parameter duerfen nicht NULL sein
+	 * Vorbedingung: t, von und bis sind ungleich NULL
+	 * 
+	 * Vorbedingung: der Zeitpunkt von liegt vor dem Zeitpunkt bis
 	 * 
 	 * @param t
 	 * @param von
@@ -191,7 +208,7 @@ public class Zeitraum implements Serializable {
 	}
 
 	/**
-	 * Vorbedingung: Parameter darf nicht NULL sein
+	 * Vorbedingung: von ist ungleich NULL
 	 * 
 	 * @param von
 	 * @return
@@ -201,13 +218,15 @@ public class Zeitraum implements Serializable {
 			return true;
 		}
 
-		// Ist das Zeitraumintervall am Ende geschlossen?
+		// NOTE: Ist das Zeitraumintervall am Ende geschlossen?
 		if ((zeitpunkte.size() & 0x1) == 0) {
 			return false;
 		}
 
-		// Das uebergebene (offene) Intervall ist enthalten,
-		// wenn es im offenen Intervall des Zeitraums enthalten ist
+		// Zusicherung: der Zeitraum ist offen (das letzte Intervall ist offen)
+
+		// NOTE: Das uebergebene (offene) Intervall ist enthalten,
+		// NOTE: wenn es im offenen Intervall des Zeitraums enthalten ist
 		Date v = zeitpunkte.get(zeitpunkte.size() - 1);
 		return !v.after(von);
 	}
@@ -215,14 +234,16 @@ public class Zeitraum implements Serializable {
 	/**
 	 * NOTE: Parameter duerfen nicht NULL sein
 	 * 
-	 * Vorbedingung: der Zeitpunkt <code>von</code> liegt vor <code>bis</code>! Parameter duerfen nicht NULL sein.
+	 * Vorbedingung: von und bis sind ungleich NULL
+	 * 
+	 * Vorbedingung: der Zeitpunkt von liegt vor dem Zeitpunkt bis
 	 */
 	private boolean enthaelt(Date von, Date bis) {
 		if (zeitpunkte.isEmpty()) {
 			return true;
 		}
 
-		// Ist das Intervall in den Zeitraumintervallen enthalten?
+		// NOTE: Ist das Intervall in den Zeitraumintervallen enthalten?
 		for (int i = 0; i < zeitpunkte.size() - 1; i += 2) {
 			Date v = zeitpunkte.get(i);
 			Date b = zeitpunkte.get(i + 1);
@@ -232,11 +253,16 @@ public class Zeitraum implements Serializable {
 			}
 		}
 
-		// Ist das Zeitraumintervall am Ende offen?
+		// Zusicherung: das Intervall [von, bis] ist nicht in den geschlossenen
+		// Intervallen enthalten
+
+		// NOTE: Ist das Zeitraumintervall am Ende offen?
 		if ((zeitpunkte.size() & 0x1) == 1) {
 			Date v = zeitpunkte.get(zeitpunkte.size() - 1);
 			return !v.after(von);
 		}
+
+		// Zusicherung: das Intervall [von, bis] ist nicht im Zietraum enthalten
 
 		return false;
 	}
