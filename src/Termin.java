@@ -4,8 +4,12 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * NOTE: Speichert Ort, Zeitraum, Dauer ab. Bietet Methoden fuer die kaufmaennische
- * Berechnungslehre.
+ * NOTE: Speichert Ort, Zeitraum, Dauer ab. Bietet Methoden fuer die
+ * kaufmaennische Berechnungslehre.
+ * 
+ * Invariante: typus, ort, zeitraum, posten und teilnehmer sind ungleich null.
+ * teilnehmer enthaelt keine Elemente gleich null. teilnehmer enthaelt keine
+ * doppelten Eintraege.
  * 
  * @author Koegler Alexander
  */
@@ -17,11 +21,13 @@ public class Termin implements Serializable {
 	private Zeitraum zeitraum;
 	private Posten posten;
 
-	// NOTE: aenderungen sind nicht zugelassen, duerfen nur mittels methoden der klasse veraendert werden
-	// Liste darf keine NULL Werte enthalten, oder doppelte eintraege
+	// NOTE: aenderungen sind nicht zugelassen, duerfen nur mittels methoden der
+	// klasse veraendert werden. Liste darf keine NULL Werte enthalten, oder
+	// doppelte eintraege
 	private List<Mitglied> teilnehmer;
 
-	//NOTE: speichert vorhergehenden zustand des Objekts (UNDO), ist NULL wenn instanziert, oder nichts mehr rueckgaengig gemacht werden kann
+	// NOTE: speichert vorhergehenden zustand des Objekts (UNDO), ist NULL wenn
+	// instanziert, oder nichts mehr rueckgaengig gemacht werden kann
 	private Termin orig;
 
 	private Termin() {
@@ -30,15 +36,14 @@ public class Termin implements Serializable {
 	/**
 	 * NOTE: Legt neuen Termin an
 	 * 
-	 * Vorbedingung: Parameter duerfen nicht NULL sein, private variable orig muss NULL bleiben. Liste darf keine NULL Werte enthalten, oder doppelte eintraege. Double Werte muessen das positives Vorzeichen haben.
+	 * Vorbedingung: typus, ort, von, bis und teilnehmer sind ungleich null.
 	 * 
-	 * @param typus
-	 * @param ort
-	 * @param von
-	 * @param bis
-	 * @param ausgaben muss >= 0 sein
-	 * @param einnahmen muss >= 0 sein
-	 * @param teilnehmer
+	 * Vorbedingung: von ist ein Zeitpunkt vor bis
+	 * 
+	 * Vorbedingung: einnahmen und ausgaben sind >= 0
+	 * 
+	 * Vorbedingung: teilnehmer enthaelt keine Elemente gleich null. teilnehmer
+	 * enthaelt keine doppelten Eintraege.
 	 */
 	public Termin(Typ typus, Ort ort, Date von, Date bis, double ausgaben,
 			double einnahmen, List<Mitglied> teilnehmer) {
@@ -49,35 +54,38 @@ public class Termin implements Serializable {
 		this.teilnehmer = teilnehmer;
 		this.orig = null;
 	}
-	
+
+	/**
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
+	 */
 	public Zeitraum getZeitraum() {
 		return zeitraum;
 	}
-	
+
+	/**
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
+	 */
 	public Posten getPosten() {
 		return posten;
 	}
 
 	/**
-	 * Nachbedingung: liefert Zahl >= 0 zurueck
-	 * 
-	 * @return
+	 * Nachbedingung: der Rueckgabewert ist >= 0
 	 */
 	public double getAusgaben() {
 		return posten.getAusgaben();
 	}
 
 	/**
-	 * Nachbedingung: liefert Zahl >= 0 zurueck
-	 * 
-	 * @return
+	 * Nachbedingung: der Rueckgabewert ist >= 0
 	 */
 	public double getEinnahmen() {
 		return posten.getEinnahmen();
 	}
 
 	/**
-	 * Vorbedingung: Liste darf keine NULL Werte enthalten, oder doppelte eintraege.
+	 * Nachbedingung: der Rueckgabewert enthaelt keine Elemente gleich null und
+	 * enthaelt keine doppelten Eintraege.
 	 * 
 	 * @return Teilnehmerliste. Diese darf nicht geaendert werden!
 	 */
@@ -87,6 +95,9 @@ public class Termin implements Serializable {
 
 	/**
 	 * NOTE: Legt eine Kopie des Termins auf den Undo-Stack.
+	 * 
+	 * Nachbedingung: eine Kopie des this-Objektes steht in der verketteten
+	 * (undo)-Liste nach dem this-Objekt.
 	 */
 	private void prepareUpdate() {
 		Termin other = new Termin();
@@ -95,7 +106,8 @@ public class Termin implements Serializable {
 		// NOTE: flache kopie (kann nicht geaendert werden, da privat)
 		other.zeitraum = zeitraum;
 
-		// NOTE: flache kopie (eine aenderung in ort aendert nichts an der bedeutung)
+		// NOTE: flache kopie (eine aenderung in ort aendert nichts an der
+		// bedeutung)
 		other.ort = ort;
 
 		// NOTE: flache kopie (unveraenderbar)
@@ -109,6 +121,15 @@ public class Termin implements Serializable {
 		this.orig = other;
 	}
 
+	/**
+	 * Nachbedingung: Wenn der Rueckgabewert true ist, ist der letzte
+	 * Objektzustand, der in der verketten undo-Liste gespeichert wurde, wieder
+	 * hergestellt. Anderenfalls ist der Termin unveraendert.
+	 * 
+	 * Nachbedingung: Wenn der Rueckgabewert true ist, befindet sich in den
+	 * Nachrichten-Queues der Teilnehmer eine Nachricht ueber die Aenderung des
+	 * Termins.
+	 */
 	public boolean undo() {
 		if (orig == null) {
 			return false;
@@ -129,24 +150,30 @@ public class Termin implements Serializable {
 	/**
 	 * NOTE: Benachrichtigt alle Teilnehmer ueber die gemachte Aenderung.
 	 * 
-	 * Nachbedinung: stellt nicht sicher, dass Teilnehmer benachrichtigt werden
+	 * Nachbedingung: In den Nachrichten-Queues der Teilnehmer befindet sich
+	 * eine Nachricht ueber die Aenderung des Termins.
 	 * 
 	 * @param aenderung
 	 */
 	private void meldeUpdate(String aenderung) {
 		for (Mitglied t : teilnehmer) {
-			assert(t != null);
-			//NOTE: t darf nicht doppelt in teilnehmer vorhanden sein
+			// NOTE: t darf nicht doppelt in teilnehmer vorhanden sein
 			t.sende(orig + " wurde geaendert: " + aenderung);
 		}
 	}
 
 	/**
-	 * Vorbedingung: Parameter zum ueberspeichern des Ortes darf nicht NULL sein
-	 * Nachbedinung: stellt nicht sicher, dass Teilnehmer benachrichtigt werden
+	 * Vorbedingung: ort ist ungleich null
+	 * 
+	 * Nachbedingung: der Ort des Termins ist nun ort.
+	 * 
+	 * Nachbedingung: der alte Zustand des Termins ist in der verketteten
+	 * undo-Liste gespeichert.
+	 * 
+	 * Nachbedingung: alle Teilnehmer des Termins haben eine Nachricht ueber die
+	 * Aenderung erhalten.
 	 * 
 	 * @author Christian Kletzander
-	 * @param ort
 	 */
 	public void setOrt(Ort ort) {
 		this.prepareUpdate();
@@ -155,8 +182,17 @@ public class Termin implements Serializable {
 	}
 
 	/**
-	 * Vorbedingung: Parameter zum ueberspeichern des Zeitraums duerfen nicht NULL sein
-	 * Nachbedinung: stellt nicht sicher, dass Teilnehmer benachrichtigt werden
+	 * Vorbedingung: von und bis sind ungleich null
+	 * 
+	 * Vorbedingung: von ist ein Zeitpunkt vor bis
+	 * 
+	 * Nachbedingung: der Zeitraum des Termins ist nun das Intervall [von, bis].
+	 * 
+	 * Nachbedingung: der alte Zustand des Termins ist in der verketteten
+	 * undo-Liste gespeichert.
+	 * 
+	 * Nachbedingung: alle Teilnehmer des Termins haben eine Nachricht ueber die
+	 * Aenderung erhalten.
 	 * 
 	 * @author Christian Kletzander
 	 * @param zeitraum
@@ -168,8 +204,15 @@ public class Termin implements Serializable {
 	}
 
 	/**
-	 * Vorbedingung: Parameter muessen >= 0 sein
-	 * Nachbedinung: stellt nicht sicher, dass Teilnehmer benachrichtigt werden
+	 * Vorbedingung: kosten ist >= 0
+	 * 
+	 * Nachbedingung: die Ausgaben des Termins sind nun kosten
+	 * 
+	 * Nachbedingung: der alte Zustand des Termins ist in der verketteten
+	 * undo-Liste gespeichert.
+	 * 
+	 * Nachbedingung: alle Teilnehmer des Termins haben eine Nachricht ueber die
+	 * Aenderung erhalten.
 	 * 
 	 * @param kosten
 	 */
@@ -182,8 +225,15 @@ public class Termin implements Serializable {
 	}
 
 	/**
-	 * Vorbedingung: Parameter muessen >= 0 sein
-	 * Nachbedinung: stellt nicht sicher, dass Teilnehmer benachrichtigt werden
+	 * Vorbedingung: umsatz ist >= 0
+	 * 
+	 * Nachbedingung: die Einnahmen des Termins sind nun umsatz
+	 * 
+	 * Nachbedingung: der alte Zustand des Termins ist in der verketteten
+	 * undo-Liste gespeichert.
+	 * 
+	 * Nachbedingung: alle Teilnehmer des Termins haben eine Nachricht ueber die
+	 * Aenderung erhalten.
 	 * 
 	 * @param umsatz
 	 */
@@ -196,11 +246,17 @@ public class Termin implements Serializable {
 	}
 
 	@Override
+	/**
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
+	 */
 	public String toString() {
 		return typus + ": " + ort + " "
 				+ zeitraum.toString(new SimpleDateFormat("dd.MM.yyyy hh:mm"));
 	}
 
+	/**
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
+	 */
 	public String toDetailString() {
 		return String.format("%s, Kosten: %,.2f, Umsatz: %,.2f", toString(),
 				posten.getAusgaben(), posten.getEinnahmen());
@@ -211,22 +267,22 @@ public class Termin implements Serializable {
 	}
 
 	/**
-	 * NOTE: Selektiert jene Termine an denen ein gegebenes Mitglied auch beteiligt
-	 * ist
-	 * 
-	 * Vorbedingung: Parameter duerfen nicht NULL sein
+	 * NOTE: Selektiert jene Termine an denen ein gegebenes Mitglied auch
+	 * beteiligt ist
 	 * 
 	 * @author Koegler Alexander
 	 */
 	public static class TeilnehmerSelektor implements Selector<Termin> {
 		private Mitglied m;
 
-		//Parameter sollte nicht NULL sein
 		public TeilnehmerSelektor(Mitglied m) {
 			this.m = m;
 		}
 
 		@Override
+		/**
+		 * Vorbedingung: item ist ungleich null
+		 */
 		public boolean select(Termin item) {
 			return item.teilnehmer.contains(m);
 		}
@@ -235,7 +291,7 @@ public class Termin implements Serializable {
 	/**
 	 * NOTE: Selektiert Termine dessen Zeitraum den angegebenen ueberschneidet
 	 * 
-	 * Vorbedingung: Parameter duerfen nicht NULL sein
+	 * Invariante: zeitraum ist ungleich null
 	 * 
 	 * @author Koegler Alexander
 	 */
@@ -243,13 +299,17 @@ public class Termin implements Serializable {
 
 		private Zeitraum zeitraum;
 
-		//Parameter darf nicht NULL sein
+		/**
+		 * Vorbedingung: zeitraum ist ungleich null
+		 */
 		public ZeitraumSelektor(Zeitraum zeitraum) {
 			this.zeitraum = zeitraum;
 		}
 
 		@Override
-		//Parameter darf nicht NULL sein
+		/**
+		 * Vorbedingung: item ist ungleich null
+		 */
 		public boolean select(Termin item) {
 			return this.zeitraum.enthaelt(item.zeitraum);
 		}
@@ -257,21 +317,27 @@ public class Termin implements Serializable {
 	}
 
 	/**
-	 * NOTE: Selektiert Termine aus, dessen Typ mit dem angegebenen uebereinstimmt
+	 * NOTE: Selektiert Termine aus, dessen Typ mit dem angegebenen
+	 * uebereinstimmt
 	 * 
-	 * Vorbedingung: Parameter duerfen nicht NULL sein
+	 * Invariante: typus ist ungleich null
 	 * 
 	 * @author Koegler Alexander
 	 */
 	public static class TypSelektor implements Selector<Termin> {
 		private Typ typus;
 
+		/**
+		 * Vorbedingung: typus ist ungleich null
+		 */
 		public TypSelektor(Typ typus) {
 			this.typus = typus;
 		}
 
 		@Override
-		//Parameter darf nicht NULL sein
+		/**
+		 * Vorbedingung: item ist ungleich null
+		 */
 		public boolean select(Termin item) {
 			return this.typus == item.typus;
 		}

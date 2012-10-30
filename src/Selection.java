@@ -10,8 +10,8 @@ import java.util.ListIterator;
  * NOTE: Eine Selektion von Elementen. Welche Elemente sichtbar sind, wird mit
  * Selector-Objekten bestimmt.
  * 
- * Invariante: list, removed und selectors sind ungleich NULL und enthalten
- * keine Elemente gleich NULL.
+ * Invariante: list, removed und selectors sind ungleich null und enthalten
+ * keine Elemente gleich null.
  * 
  * @author Peter Pilgerstorfer
  * 
@@ -37,8 +37,8 @@ public class Selection<T> implements Iterable<T>, Serializable {
 	 * <code>base</code> arbeitet. Die uebergebenen Selektoren werden
 	 * zusaetzlich zu den in <code>base</code> bestehenden uebernommen.
 	 * 
-	 * Vorbedingung: base und selectors sind ungleich NULL. selectors enthaelt
-	 * keine Elemente gleich NULL.
+	 * Vorbedingung: base und selectors sind ungleich null. selectors enthaelt
+	 * keine Elemente gleich null.
 	 * 
 	 * Nachbedinung: Die neue Selektion arbeitet auf den selben Elementen wie
 	 * base. Es sind jedoch nur Elemente sichtbar, die mit den selectors
@@ -84,7 +84,9 @@ public class Selection<T> implements Iterable<T>, Serializable {
 	/**
 	 * NOTE: Fuegt ein Element zur Liste hinzu.
 	 * 
-	 * Vorbedingung: element ist ungleich NULL.
+	 * Vorbedingung: element ist ungleich null.
+	 * 
+	 * Nachbedingung: Wenn der Rueckgabewert true ist, wurde element zur Liste hinzugefuegt.
 	 * 
 	 * @param element
 	 */
@@ -147,7 +149,7 @@ public class Selection<T> implements Iterable<T>, Serializable {
 	}
 
 	/**
-	 * Vorbedingung: element ist ungleich NULL
+	 * Vorbedingung: element ist ungleich null
 	 * 
 	 * @param element
 	 * @return true, wenn alle Selektoren das Element selektieren, false
@@ -167,7 +169,7 @@ public class Selection<T> implements Iterable<T>, Serializable {
 	 * java.util.Collection zurueck. Nachbedingung: liefert gueltiges
 	 * String-Objekt zurueck
 	 * 
-	 * Nachbedingung: Der Rueckgabewert ist ungleich NULL.
+	 * Nachbedingung: Der Rueckgabewert ist ungleich null.
 	 */
 	@Override
 	public String toString() {
@@ -210,7 +212,7 @@ public class Selection<T> implements Iterable<T>, Serializable {
 	 * NOTE: Erstellt einen neuen Iterator, der alle selektierten Elemente
 	 * durchlaeuft.
 	 * 
-	 * Nachbedingung: Der Rueckgabewert ist ungleich NULL.
+	 * Nachbedingung: Der Rueckgabewert ist ungleich null.
 	 * 
 	 * Elemente die von diesem Iterator entfernt werden, koennen mit
 	 * <code>restore</code> wiederhergestellt werden.
@@ -224,7 +226,7 @@ public class Selection<T> implements Iterable<T>, Serializable {
 	 * NOTE: Erstellt einen neuen Iterator, der alle selektierten, geloeschten
 	 * Elemente durchlaeuft.
 	 * 
-	 * Nachbedingung: Der Rueckgabewert ist ungleich NULL.
+	 * Nachbedingung: Der Rueckgabewert ist ungleich null.
 	 * 
 	 * Elemente die von diesem Iterator entfernt werden, sind nicht
 	 * wiederherstellbar!
@@ -237,7 +239,7 @@ public class Selection<T> implements Iterable<T>, Serializable {
 	 * NOTE: Repraesentiert einen Iterator, der durch alle selektierten Elemente
 	 * iteriert.
 	 * 
-	 * Invariante: sourceIter ist ungleich NULL Invariante: next zeigt auf das
+	 * Invariante: sourceIter ist ungleich null Invariante: next zeigt auf das
 	 * naechste selektierte Element Invariante: current zeigt auf das aktuelle
 	 * Element
 	 * 
@@ -250,8 +252,8 @@ public class Selection<T> implements Iterable<T>, Serializable {
 		private T next; // das naechste selektierte Element, bzw. null am Ende
 
 		/**
-		 * Vorbedingung: source ist ungleich NULL. source enthaelt keine
-		 * Elemente gleich NULL.
+		 * Vorbedingung: source ist ungleich null. source enthaelt keine
+		 * Elemente gleich null.
 		 * 
 		 * @param source
 		 */
@@ -260,8 +262,8 @@ public class Selection<T> implements Iterable<T>, Serializable {
 		}
 
 		/**
-		 * Vorbedingung: source ist ungleich NULL. source und removed enthalten
-		 * keine Elemente gleich NULL.
+		 * Vorbedingung: source ist ungleich null. source und removed enthalten
+		 * keine Elemente gleich null.
 		 * 
 		 * @param source
 		 * @param removed
@@ -297,7 +299,7 @@ public class Selection<T> implements Iterable<T>, Serializable {
 		@Override
 		/**
 		 * Vorbedingung: die Methode hasNext() muss true liefern.
-		 * Nachbedingung: der Rueckgabewert ist ungleich NULL.
+		 * Nachbedingung: der Rueckgabewert ist ungleich null.
 		 * Nachbedingung: der Iterator steht am naechsten selektierten Element.
 		 */
 		public T next() {

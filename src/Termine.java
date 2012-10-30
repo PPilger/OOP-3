@@ -10,6 +10,9 @@ import java.util.List;
 public class Termine extends Selection<Termin> {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Nachbedingung: das neue Termine Objekt enthaelt keine Termine
+	 */
 	public Termine() {
 	}
 
@@ -18,36 +21,45 @@ public class Termine extends Selection<Termin> {
 	 * <code>base</code> arbeitet. Es sind jedoch nur Elemente sichtbar, die von
 	 * den Selektoren selektiert werden.
 	 * 
-	 * @param base
-	 * @param selectors
+	 * Vorbedingung: base und selectors sind ungleich null. selectors enthaelt
+	 * keine Elemente gleich null.
+	 * 
+	 * Nachbedinung: das neue Termine Objekt arbeitet auf den selben Elementen
+	 * wie base. Es sind jedoch nur Elemente sichtbar, die mit den selectors
+	 * selektiert werden.
 	 */
 	private Termine(Termine base, List<Selector<Termin>> selectors) {
 		super(base, selectors);
 	}
 
 	/**
-	 * NOTE: Liefert eine Selektion der in diesem Objekt gespeicherten Termine. Mit
-	 * den uebergebenen Selektoren kann bestimmt werden, welche Termine
+	 * NOTE: Liefert eine Selektion der in diesem Objekt gespeicherten Termine.
+	 * Mit den uebergebenen Selektoren kann bestimmt werden, welche Termine
 	 * selektiert werden. Aenderungen in der zurueckgegebenen Selektion wirken
 	 * sich direkt auf das Original aus.
 	 * 
-	 * Vorbedingung: Parameter duerfen nicht NULL sein
+	 * Vorbedingung: selectors ist ungleich null und enthaelt keine Elemente
+	 * gleich null.
 	 * 
-	 * @param selectors
-	 * @return
+	 * Nachbedinung: das zurueckgegebene Termine Objekt arbeitet auf den selben
+	 * Elementen wie this. Es sind jedoch nur Elemente sichtbar, die mit den
+	 * selectors selektiert werden.
 	 */
 	public Termine select(List<Selector<Termin>> selectors) {
 		return new Termine(this, selectors);
 	}
 
 	/**
-	 * NOTE: Parameter darf nicht NULL sein
-	 * Fuegt einen neuen Termin hinzu, sofern dieser keine Teilnehmer besitzt.
-	 * Um einen Termin mit Teilnehmern anzulegen sollte
-	 * <code>Band.sendeTerminvorschlag()</code> verwendet werden.
-	 *
-	 * Vorbedingung: Parameter darf nicht NULL sein
-	 *
+	 * NOTE: Parameter darf nicht NULL sein Fuegt einen neuen Termin hinzu,
+	 * sofern dieser keine Teilnehmer besitzt. Um einen Termin mit Teilnehmern
+	 * anzulegen sollte <code>Band.sendeTerminvorschlag()</code> verwendet
+	 * werden.
+	 * 
+	 * Vorbedingung: termin ist ungleich null
+	 * 
+	 * Nachbedingung: Wenn der Rueckgabewert true ist, wurde termin zur Liste
+	 * hinzugefuegt.
+	 * 
 	 * @return true, wenn der Termin hinzugefuegt wurde, false wenn er
 	 *         Teilnehmer hat.
 	 */
@@ -64,7 +76,7 @@ public class Termine extends Selection<Termin> {
 	 * NOTE: Fuegt einen Termin zur Liste hinzu, wenn alle Teilnehmer dem
 	 * entsprechenden Terminvorschlag zugestimmt haben.
 	 * 
-	 * Vorbedingung: Parameter darf nicht NULL sein
+	 * Vorbedingung: vorschlag ist ungleich null
 	 * 
 	 * @param vorschlag
 	 */
@@ -75,9 +87,10 @@ public class Termine extends Selection<Termin> {
 	}
 
 	/**
-	 * NOTE: Entfernt alle selektierten Termine und benachrichtigt alle Teilnehmer.
+	 * NOTE: Entfernt alle selektierten Termine und benachrichtigt alle
+	 * Teilnehmer.
 	 * 
-	 * Nachbedingung: liefert int >= 0 zurueck
+	 * Nachbedingung: der Rueckgabewert ist >= 0
 	 * 
 	 * @return die Anzahl der entfernten Termine
 	 */
@@ -90,7 +103,6 @@ public class Termine extends Selection<Termin> {
 			Termin termin = iter.next();
 
 			for (Mitglied teilnehmer : termin.getTeilnehmer()) {
-				assert(teilnehmer != null);
 				teilnehmer.sende(termin + " wurde entfernt!");
 			}
 
@@ -103,11 +115,6 @@ public class Termine extends Selection<Termin> {
 
 	/**
 	 * NOTE: Berechnet den Gewinn aller selektierten Termine.
-	 * 
-	 * Nachbedingung: liefert int >= 0 zurueck
-	 * 
-	 * @param zeitpunkt
-	 * @return der Gewinn
 	 */
 	public double getGewinn() {
 		double gewinn = 0;
@@ -122,10 +129,7 @@ public class Termine extends Selection<Termin> {
 	/**
 	 * NOTE: Berechnet die Kosten aller selektierten Termine.
 	 * 
-	 * Nachbedingung: liefert int >= 0 zurueck
-	 * 
-	 * @param zeitpunkt
-	 * @return die Kosten
+	 * Nachbedingung: der Rueckgabewert ist >= 0
 	 */
 	public double getKosten() {
 		double kosten = 0;

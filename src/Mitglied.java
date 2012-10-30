@@ -53,6 +53,8 @@ public class Mitglied implements Serializable {
 	/**
 	 * Vorbedingung: nachricht ist ungleich null
 	 * 
+	 * Nachbedingung: die Queue nachrichten enthaelt nachricht
+	 * 
 	 * @param nachricht
 	 */
 	public void sende(String nachricht) {
@@ -61,6 +63,8 @@ public class Mitglied implements Serializable {
 
 	/**
 	 * Vorbedingung: terminvorschlag ist ungleich null
+	 * 
+	 * Nachbedingung: die Queue terminvorschlaege enthaelt terminvorschlag
 	 * 
 	 * @param terminvorschlag
 	 */

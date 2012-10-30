@@ -2,22 +2,33 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Invariante: termin, target und offen sind ungleich null.
+ * 
+ * Invariante: offen enthaelt keine Elemente gleich null. offen enthaelt keine
+ * doppelten Eintraege.
+ * 
+ * @author Peter Pilgerstorfer
+ */
 public class Terminvorschlag implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Termin termin;
 	private Termine target;
-	
-	//Liste darf nie NULL werden oder Elemente die NULL sind enthalten
+
 	private List<Mitglied> offen;
 
 	/**
-	 * NOTE: Legt neuen Termin 
+	 * NOTE: Legt neuen Termin
 	 * 
-	 * Vorbedingung: Parameter duerfen nicht NULL sein
+	 * Vorbedingung: termin und target sind ungleich null.
 	 * 
-	 * @param termin an, der bei Zustimmung zu 
-	 * @param target angegebenen Terminen hinzugefuegt wird
+	 * Nachbedingung: offen enthaelt alle Teilnehmer von termin
+	 * 
+	 * @param termin
+	 *            an, der bei Zustimmung zu
+	 * @param target
+	 *            angegebenen Terminen hinzugefuegt wird
 	 */
 	public Terminvorschlag(Termin termin, Termine target) {
 		this.termin = termin;
@@ -25,17 +36,23 @@ public class Terminvorschlag implements Serializable {
 		this.offen = new ArrayList<Mitglied>(termin.getTeilnehmer());
 	}
 
+	/**
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
+	 */
 	public Termin getTermin() {
 		return termin;
 	}
 
-	
 	/**
-	 * NOTE: Einzelnes Mitglied akzeptiert Termin, muss niemand mehr akzeptieren wird der Termin zu Termine hinzugefuegt.
+	 * NOTE: Einzelnes Mitglied akzeptiert Termin, muss niemand mehr akzeptieren
+	 * wird der Termin zu Termine hinzugefuegt.
 	 * 
-	 * Vorbedingung: Parameter darf nicht NULL sein
+	 * Vorbedingung: mitglied ist ungleich null
 	 * 
-	 * @param mitglied Das Mitglied das den Termin akzeptiert
+	 * Nachbedingung: mitglied ist nicht mehr in offen enthalten
+	 * 
+	 * @param mitglied
+	 *            Das Mitglied das den Termin akzeptiert
 	 */
 	public void accept(Mitglied mitglied) {
 		offen.remove(mitglied);
@@ -47,17 +64,23 @@ public class Terminvorschlag implements Serializable {
 	/**
 	 * NOTE: Terminvorschlag wird abgelehnt und verworfen
 	 * 
-	 * Vorbedingung: Parameter duerfen nicht NULL sein
+	 * Vorbedingung: mitglied ist ungleich null
 	 * 
-	 * @param mitglied Das ablehnende Mitglied
-	 * @param nachricht Grund der Ablehnung
+	 * Nachbedingung: Wenn mitglied Teilnehmer des Termins ist, ist der
+	 * Terminvorschlag aus den Terminvorschlag-Queues der Teilnehmer entfernt
+	 * worden und alle Teilnehmer haben eine Nachricht ueber das Ablehnen des
+	 * Termins erhalten.
+	 * 
+	 * @param mitglied
+	 *            Das ablehnende Mitglied
+	 * @param nachricht
+	 *            Grund der Ablehnung
 	 */
 	public void decline(Mitglied mitglied, String nachricht) {
 		if (termin.getTeilnehmer().contains(mitglied)) {
 			for (Mitglied m : termin.getTeilnehmer()) {
-				assert(m!= null);
 				m.revidiere(this);
-				if(m != mitglied) {
+				if (m != mitglied) {
 					m.sende(mitglied + ": " + nachricht + " - " + termin);
 				}
 			}
@@ -68,10 +91,16 @@ public class Terminvorschlag implements Serializable {
 		return offen.isEmpty();
 	}
 
+	/**
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
+	 */
 	public String toString() {
 		return termin.toString();
 	}
 
+	/**
+	 * Nachbedingung: der Rueckgabewert ist ungleich null
+	 */
 	public String toDetailString() {
 		return termin.toDetailString() + ", Ausstehend: " + offen;
 	}
