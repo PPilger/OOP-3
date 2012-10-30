@@ -1,8 +1,9 @@
 /**
  * NOTE: wird benoetigt um Objekte vom Typ T nach kriterien zu filtern
  * 
- * @author VHD
+ * GOOD: Vermeidet Codewiederholung, dynamisches Binden
  * 
+ * @author VHD
  * @param <T>
  */
 public interface Selector<T> {
