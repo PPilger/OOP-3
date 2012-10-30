@@ -3,11 +3,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
- 
+
 /**
+ * Invariante: Alle Objektvariablen sind ungleich NULL
  * 
  * @author Christian Kletzander
- * 
  */
 public class Band implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -23,7 +23,10 @@ public class Band implements Serializable {
 	private Orte orte;
 	private GuV guv;
 
-	// Konstruktor
+	/**
+	 * Vorbedingung: name und ausrichtung sind ungleich NULL Nachbedingung: alle
+	 * Songs, Termine, Mitglieder, Orte und GuV Posten sind leer
+	 */
 	public Band(String name, String ausrichtung, int minProben) {
 		this.name = name;
 		this.ausrichtung = ausrichtung;
@@ -36,89 +39,150 @@ public class Band implements Serializable {
 		this.guv = new GuV(this);
 	}
 
+	/**
+	 * Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 */
 	public Songs getRepertoire() {
 		return this.repertoire;
 	}
 
+	/**
+	 * Vorbedingung: selector ist ungleich NULL Nachbedingung: der Rueckgabewert
+	 * ist ungleich NULL
+	 */
 	public Songs getRepertoire(Selector<Song> selector) {
 		List<Selector<Song>> list = new ArrayList<Selector<Song>>();
 		list.add(selector);
 		return getRepertoire(list);
 	}
 
+	/**
+	 * Vorbedingung: selectors ist ungleich NULL und enthaelt keine Elemente
+	 * gleich NULL Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 */
 	public Songs getRepertoire(List<Selector<Song>> selectors) {
 		return this.repertoire.select(selectors);
 	}
 
+	/**
+	 * Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 */
 	public Termine getTermine() {
 		return this.termine;
 	}
 
+	/**
+	 * Vorbedingung: selector ist ungleich NULL Nachbedingung: der Rueckgabewert
+	 * ist ungleich NULL
+	 */
 	public Termine getTermine(Selector<Termin> selector) {
 		List<Selector<Termin>> list = new ArrayList<Selector<Termin>>();
 		list.add(selector);
 		return getTermine(list);
 	}
 
+	/**
+	 * Vorbedingung: selectors ist ungleich NULL und enthaelt keine Elemente
+	 * gleich NULL Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 */
 	public Termine getTermine(List<Selector<Termin>> selectors) {
 		return this.termine.select(selectors);
 	}
 
+	/**
+	 * Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 */
 	public Mitglieder getMitglieder() {
 		return this.mitglieder;
 	}
 
+	/**
+	 * Vorbedingung: selector ist ungleich NULL Nachbedingung: der Rueckgabewert
+	 * ist ungleich NULL
+	 */
 	public Mitglieder getMitglieder(Selector<Mitglied> selector) {
 		List<Selector<Mitglied>> list = new ArrayList<Selector<Mitglied>>();
 		list.add(selector);
 		return getMitglieder(list);
 	}
 
+	/**
+	 * Vorbedingung: selectors ist ungleich NULL und enthaelt keine Elemente
+	 * gleich NULL Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 */
 	public Mitglieder getMitglieder(List<Selector<Mitglied>> selectors) {
 		return this.mitglieder.select(selectors);
 	}
-	
+
+	/**
+	 * Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 */
 	public Orte getOrte() {
 		return this.orte;
 	}
 
+	/**
+	 * Vorbedingung: selector ist ungleich NULL Nachbedingung: der Rueckgabewert
+	 * ist ungleich NULL
+	 */
 	public Orte getOrte(Selector<Ort> selector) {
 		List<Selector<Ort>> list = new ArrayList<Selector<Ort>>();
 		list.add(selector);
 		return getOrte(list);
 	}
 
+	/**
+	 * Vorbedingung: selectors ist ungleich NULL und enthaelt keine Elemente
+	 * gleich NULL Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 */
 	public Orte getOrte(List<Selector<Ort>> selectors) {
 		return this.orte.select(selectors);
 	}
-	
+
+	/**
+	 * Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 */
 	public GuV getGuV() {
 		return this.guv;
 	}
 
+	/**
+	 * Vorbedingung: selector ist ungleich NULL Nachbedingung: der Rueckgabewert
+	 * ist ungleich NULL
+	 */
 	public GuV getGuV(Selector<Posten> selector) {
 		List<Selector<Posten>> list = new ArrayList<Selector<Posten>>();
 		list.add(selector);
 		return getGuV(list);
 	}
 
+	/**
+	 * Vorbedingung: selectors ist ungleich NULL und enthaelt keine Elemente
+	 * gleich NULL Nachbedingung: der Rueckgabewert ist ungleich NULL
+	 */
 	public GuV getGuV(List<Selector<Posten>> selectors) {
 		return this.guv.select(selectors);
 	}
 
 	/**
-	 * Erstellt einen Terminvorschlag der an alle Teilnehmer versendet wird. Der
-	 * Termin wird erst im System uebernommen, wenn alle Teilnehmer zugestimmt
-	 * haben.
+	 * NOTE: Erstellt einen Terminvorschlag der an alle Teilnehmer versendet
+	 * wird. Der Termin wird erst im System uebernommen, wenn alle Teilnehmer
+	 * zugestimmt haben.
 	 * 
-	 * Ein Termin ist ungueltig, wenn ein Teilnehmer nicht teilnehmen darf. Wenn
-	 * <code>termin</code> ungueltig ist, wird false zurueckgegeben. Ein
-	 * Ersatzmitglied muss mindestens <code>minProben</code> pro Jahr
+	 * NOTE: Ein Termin ist ungueltig, wenn ein Teilnehmer nicht teilnehmen
+	 * darf. Wenn <code>termin</code> ungueltig ist, wird false zurueckgegeben.
+	 * Ein Ersatzmitglied muss mindestens <code>minProben</code> pro Jahr
 	 * absolvieren um an einem Auftritt teilzunehmen.
+	 * 
+	 * Nachbedingung: ein Terminvorschlag zu termin ist in der
+	 * Terminvorschlag-Queue jedes Teilnehmers.
 	 * 
 	 * @param termin
 	 * @return true, wenn der Terminvorschlag an alle Teilnehmer gesendet wurde,
@@ -131,7 +195,8 @@ public class Band implements Serializable {
 		Mitglied.TypSelector ersatzmitglieder = new Mitglied.TypSelector(true);
 
 		if (auftritte.select(termin)) {
-			// Erstelle einen Zeitraum von einem Jahr vor Beginn des Auftrittes.
+			// NOTE: Erstelle einen Zeitraum von einem Jahr vor Beginn des
+			// Auftrittes.
 			Calendar calender = Calendar.getInstance();
 			Date von;
 			Date bis = termin.getZeitraum().getFirst();
@@ -143,6 +208,9 @@ public class Band implements Serializable {
 
 			einJahr = new Zeitraum(von, bis);
 
+			// Zusicherung: einJahr enthaelt den Zeitraum von vor einem Jahr bis
+			// jetzt.
+
 			for (Mitglied teilnehmer : termin.getTeilnehmer()) {
 				if (ersatzmitglieder.select(teilnehmer)) {
 					List<Selector<Termin>> selectors = new ArrayList<Selector<Termin>>();
@@ -151,11 +219,17 @@ public class Band implements Serializable {
 					selectors.add(new Termin.TeilnehmerSelektor(teilnehmer));
 
 					if (termine.select(selectors).count() < minProben) {
-						return false; // Mindestanzahl nicht erfuellt
+						return false; // NOTE: Mindestanzahl nicht erfuellt
 					}
 				}
 			}
+
+			// Zusicherung: alle Ersatzmitglieder die am Termin teilnehmen haben
+			// genug Proben im letzten Jahr absolviert
 		}
+
+		// Zusicherung: alle Teilnehmer erfuellen die Vorraussetzungen um an dem
+		// Termin teilzunehmen
 
 		for (Mitglied teilnehmer : termin.getTeilnehmer()) {
 			teilnehmer.sende(vorschlag);
@@ -164,6 +238,9 @@ public class Band implements Serializable {
 		return true;
 	}
 
+	/**
+	 * Nachbedingung: Der Rueckgabewert ist ungleich NULL
+	 */
 	public String toString() {
 		return this.name + ", " + this.ausrichtung;
 	}
