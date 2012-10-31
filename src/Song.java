@@ -6,13 +6,13 @@ import java.util.List;
  * Invariante: name, zeitraum und varianten sind ungleich null. varianten
  * enthaelt keine Elemente gleich null.
  * 
- * GOOD: Der Klassen-Zusammenhalt dieser Klasse ist niedrig. Es gibt wenige Abhängigkeiten
- * 		 die aufeinander aufbauen. Nur der Selektor benötigt das Attribut name um einen 
- * 		 Vergleich darzustellen. Somit würde das weglassen dieses Attributs ein nicht finden 
+ * GOOD: Der Klassen-Zusammenhalt dieser Klasse ist niedrig. Es gibt wenige Abhaengigkeiten
+ * 		 die aufeinander aufbauen. Nur der Selektor benoetigt das Attribut name um einen 
+ * 		 Vergleich darzustellen. Somit wuerde das weglassen dieses Attributs ein nicht finden 
  * 		 des Selektors bedeuten.
  * 
  * GOOD: Die Objekt-Kopplung ist schwach. Ein Song-Objekt interagiert mit wenigen anderen Objekten. 
- * 		 Somit ist gewährleistet, dass beim Löschen eines Song-Objekts nicht mit negativen Einflüssen 
+ * 		 Somit ist gewaehrleistet, dass beim Loeschen eines Song-Objekts nicht mit negativen Einfluessen 
  * 		 zu rechnen ist.
  * 
  * @author Christian Kletzander

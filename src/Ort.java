@@ -4,13 +4,13 @@ import java.util.List;
 /**
  * NOTE: Speichert Ort mit zugehoeriger Infrastruktur
  * 
- * GOOD: Der Klassen-Zusammenhalt dieser Klasse ist niedrig. Es gibt wenige Abhängigkeiten
+ * GOOD: Der Klassen-Zusammenhalt dieser Klasse ist niedrig. Es gibt wenige Abhaengigkeiten
  * 		 die aufeinander aufbauen. Nur der Selektor benötigt die Attribute um einen 
- * 		 Vergleich darzustellen. Somit würde das weglassen dieses Attributs ein nicht finden 
+ * 		 Vergleich darzustellen. Somit wuerde das weglassen dieses Attributs ein nicht finden 
  * 		 des Selektors bedeuten.
  * 
  * GOOD: Die Objekt-Kopplung ist schwach. Ein Ort-Objekt interagiert mit wenigen anderen Objekten. 
- * 		 Somit ist gewährleistet, dass beim Löschen eines Ort-Objekts nicht mit negativen Einflüssen 
+ * 		 Somit ist gewaehrleistet, dass beim Loeschen eines Ort-Objekts nicht mit negativen Einfluessen 
  * 		 zu rechnen ist.
  * 
  * Invariante: bezeichnung und infrastruktur sind ungleich null. infrastruktur enthaelt keine Elemente gleich null.

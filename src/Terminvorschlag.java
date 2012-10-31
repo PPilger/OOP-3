@@ -10,7 +10,6 @@ import java.util.List;
  * Andererseits wuerde so das hizufuegen eines Terminvorschlags mittels add in die Termin-Liste einen staerkeren Klassenzusammenhalt (Termine, Terminvorschlag, Termin) gewaehrleisten.
  * Das haette aber einen hohen Aufwand, sowohl bei implementation als auch Wartbarkeit verursacht, wenn man auf eine schwache Objektkopplung setzen wuerde.
  * 
- * GOOD: 
  * Invariante: termin, target und offen sind ungleich null.
  * 
  * Invariante: offen enthaelt keine Elemente gleich null. offen enthaelt keine
