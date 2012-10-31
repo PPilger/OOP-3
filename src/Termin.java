@@ -3,14 +3,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-/**GOOD: Enumeration, diese wird statt Interface oder Vererbung fuer Typ verwendet, da auf diese Art Code "wiederverwendet" wird.
- * Man erspart sich mehrere Klassen, deren unterschied nur der Typ ist.
- * Aufgrund der Selektoren kann ein Typ bei der weiteren verarbeitung Problemlos ausgewaehlt werden,
- * man erspart sich somit Typueberpruefungen. Ein Enumerator ermoeglicht auch die spaetere Erwaeiterbarkeit der Klasse in hinblick auf andere Typen.
- * 
- * BAD: schwacher KLassenzusammenhalt. EIn 
- * NOTE: Speichert Ort, Zeitraum, Dauer ab. Bietet Methoden fuer die
- * kaufmaennische Berechnungslehre.
+/**
+ * BAD: Starke Objektkopplung. Die Variablen benoetigen get-Methoden, da andere
+ * Klassen auf die Attribute zugreifen muessen. Weiters muss der Termin
+ * veraenderbar sein, weshalb ebenfalls set-Methoden benoetigt werden.
+ * Moegliche Loesung fuer die Setter: Man kann Updates durch Neuerstellen des 
+ * Termins realisieren (eventuell mit Hilfsklasse um die Aenderungen eines Termins
+ * durchzufueren).
  * 
  * Invariante: typus, ort, zeitraum, posten und teilnehmer sind ungleich null.
  * teilnehmer enthaelt keine Elemente gleich null. teilnehmer enthaelt keine
