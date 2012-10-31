@@ -189,6 +189,10 @@ public class Band implements Serializable {
 	 * Ein Ersatzmitglied muss mindestens <code>minProben</code> pro Jahr
 	 * absolvieren um an einem Auftritt teilzunehmen.
 	 * 
+	 * BAD: Schwacher Klassenzusammenhalt: Die Methode gehoert nicht wirklich
+	 * zur Klasse Band. Es waere besser fuer den Klassenzusammenhalt, diese
+	 * Methode in den Terminvorschlag einzubauen.
+	 * 
 	 * Nachbedingung: ein Terminvorschlag zu termin ist in der
 	 * Terminvorschlag-Queue jedes Teilnehmers.
 	 * 

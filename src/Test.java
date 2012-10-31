@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Queue;
 
 /**
- * SCHLECHT: Warum wir keine 5 schlechten Teile in unserem Code gefunden haben:
+ * BAD: Warum wir keine 5 schlechten Teile in unserem Code gefunden haben:
  * 
  * 1) Code Wiederverwendung
  * 
