@@ -6,10 +6,15 @@ import java.util.List;
 /**
  * BAD: Starke Objektkopplung. Die Variablen benoetigen get-Methoden, da andere
  * Klassen auf die Attribute zugreifen muessen. Weiters muss der Termin
- * veraenderbar sein, weshalb ebenfalls set-Methoden benoetigt werden.
- * Moegliche Loesung fuer die Setter: Man kann Updates durch Neuerstellen des 
- * Termins realisieren (eventuell mit Hilfsklasse um die Aenderungen eines Termins
+ * veraenderbar sein, weshalb ebenfalls set-Methoden benoetigt werden. Moegliche
+ * Loesung fuer die Setter: Man kann Updates durch Neuerstellen des Termins
+ * realisieren (eventuell mit Hilfsklasse um die Aenderungen eines Termins
  * durchzufueren).
+ * 
+ * BAD: Schwacher Klassenzusammenhalt: Die Update-Funktionalitaet hat nicht
+ * direkt etwas mit dem Termin zu tun und koennte in eine Basisklasse
+ * ausgelagert werden. Diese kann sich einzig der Aufgabe des Update und Undo
+ * widmen und ebenso von anderen Objekten benutzt werden.
  * 
  * Invariante: typus, ort, zeitraum, posten und teilnehmer sind ungleich null.
  * teilnehmer enthaelt keine Elemente gleich null. teilnehmer enthaelt keine
