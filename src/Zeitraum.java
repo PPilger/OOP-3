@@ -21,7 +21,7 @@ import java.util.List;
 public class Zeitraum implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	List<Date> zeitpunkte = new ArrayList<Date>();
+	List<Date> zeitpunkte = new ArrayList<Date>(); 
 
 	/**
 	 * Vorbedingung: zeitpunkte enthaelt keine Elemente gleich NULL
